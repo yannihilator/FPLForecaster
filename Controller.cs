@@ -1,25 +1,23 @@
 using System;
-using System.Net;
-using System.IO;
+using System.Linq;
+using FPL_Forecaster.Clients;
+using FPL_Forecaster.Models;
+using System.Threading.Tasks;
 
 namespace FPL_Forecaster
 {
     public class Controller
     {
-        public void GetJson()
-        {
-            HttpWebRequest req = WebRequest.Create("https://fantasy.premierleague.com/api/bootstrap-static/") as HttpWebRequest;
+        private FixtureClient fixtureClient;
 
-            req.Method = "GET";
-            HttpWebResponse response = req.GetResponse() as HttpWebResponse;
-        
-            string jsonDerulo = null;
-            using (Stream stream = response.GetResponseStream())   
-            {   
-                StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8);
-                jsonDerulo = reader.ReadToEnd();
-            }
-            Console.WriteLine(jsonDerulo);
+        public Controller()
+        {
+            fixtureClient = new FixtureClient();
+        }
+               
+        public void GetData()
+        {
+            DataService.Data.Fixtures = fixtureClient.GetAllFixtures().Result;
         }
     }
 }

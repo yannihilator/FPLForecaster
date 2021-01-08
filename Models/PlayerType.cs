@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-namespace FPL_Forecaster
+namespace FPL_Forecaster.Models
 {
-    public class ElementType    {
+    public class PlayerType 
+    {
         public int id { get; set; } 
         public string plural_name { get; set; } 
         public string plural_name_short { get; set; } 

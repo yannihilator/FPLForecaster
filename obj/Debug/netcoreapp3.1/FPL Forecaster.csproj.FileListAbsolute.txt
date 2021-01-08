@@ -10,3 +10,17 @@
 /Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.dll
 /Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.pdb
 /Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.genruntimeconfig.cache
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPL Forecaster.deps.json
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPL Forecaster.runtimeconfig.json
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPL Forecaster.runtimeconfig.dev.json
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPL Forecaster.dll
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPL Forecaster.pdb
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.csprojAssemblyReference.cache
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.AssemblyInfoInputs.cache
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.AssemblyInfo.cs
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.csproj.CoreCompileInputs.cache
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.dll
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.pdb
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.genruntimeconfig.cache
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPL Forecaster.csproj.CopyComplete

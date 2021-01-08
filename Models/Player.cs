@@ -1,7 +1,8 @@
 using System;
-namespace FPL_Forecaster
+namespace FPL_Forecaster.Models
 {
-    public class Element    {
+    public class Player    
+    {
         public int? chance_of_playing_next_round { get; set; } 
         public int? chance_of_playing_this_round { get; set; } 
         public int code { get; set; } 

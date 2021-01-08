@@ -1,4 +1,4 @@
-namespace FPL_Forecaster
+namespace FPL_Forecaster.Models
 {
     public class Team    
     {

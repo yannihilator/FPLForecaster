@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/FPL Forecaster.csproj": {}
+    "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj": {}
   },
   "projects": {
-    "/Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/FPL Forecaster.csproj": {
+    "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/FPL Forecaster.csproj",
+        "projectUniqueName": "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj",
         "projectName": "FPL Forecaster",
-        "projectPath": "/Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/FPL Forecaster.csproj",
+        "projectPath": "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj",
         "packagesPath": "/Users/yanni/.nuget/packages/",
-        "outputPath": "/Users/yanni/Documents/Repos - Local Stuff/FPL Forecaster/obj/",
+        "outputPath": "/Users/yanni/Documents/Repos/FPLForecaster/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -38,6 +38,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
