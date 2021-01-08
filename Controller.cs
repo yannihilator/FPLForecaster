@@ -9,15 +9,18 @@ namespace FPL_Forecaster
     public class Controller
     {
         private FixtureClient fixtureClient;
+        private PlayerClient playerClient;
 
         public Controller()
         {
             fixtureClient = new FixtureClient();
+            playerClient = new PlayerClient();
         }
                
         public void GetData()
         {
             DataService.Data.Fixtures = fixtureClient.GetAllFixtures().Result;
+            DataService.Data.Players = playerClient.GetAllPlayers().Result;
         }
     }
 }

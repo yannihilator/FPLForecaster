@@ -14,6 +14,10 @@ namespace FPL_Forecaster
             {
                 Console.WriteLine(fix.kickoff_time.ToString());
             }
+            foreach (FPL_Forecaster.Models.Player pl in DataService.Data.Players)
+            {
+                Console.WriteLine(pl.web_name);
+            }
         }
     }
 }
