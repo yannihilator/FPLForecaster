@@ -72,9 +72,8 @@ namespace FPL_Forecaster.Models
         public string direct_freekicks_text { get; set; } 
         public int? penalties_order { get; set; } 
         public string penalties_text { get; set; } 
-        public ICollection<PlayerFutureFixture> futureFixtures {get;set;}
-        public ICollection<PlayerPastFixture> pastFixtures {get;set;}
-        public ICollection<PlayerHistoricalFixture> historicalFixtures {get;set;}
+        public PlayerDetails playerDetails {get;set;}
+        public PlayerType playerType {get;set;}
     }
 
 }

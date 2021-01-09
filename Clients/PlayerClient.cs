@@ -21,20 +21,31 @@ namespace FPL_Forecaster.Clients
             var jsonPlayer = JObject.Parse(json)["elements"].ToString();
             ICollection<Player> players = JsonConvert.DeserializeObject<ICollection<Player>>(jsonPlayer);
 
-            //gets detailed data for each player and adds it in to their model
-            foreach (Player player in players)
-            {
-                var jsonPlayerDetails = await FPLClient.HttpClient.GetStringAsync($"element-summary/{player.id}/");
-
-                string jsonFuture = JObject.Parse(jsonPlayerDetails)["fixtures"].ToString();
-                string jsonPast = JObject.Parse(jsonPlayerDetails)["history"].ToString();
-                string jsonHistorical = JObject.Parse(jsonPlayerDetails)["history_past"].ToString();
-
-                player.futureFixtures = JsonConvert.DeserializeObject<ICollection<PlayerFutureFixture>>(jsonFuture);
-                player.pastFixtures = JsonConvert.DeserializeObject<ICollection<PlayerPastFixture>>(jsonPast);
-                player.historicalFixtures = JsonConvert.DeserializeObject<ICollection<PlayerHistoricalFixture>>(jsonHistorical);
-            }
             return players;
+        }
+
+        public async Task<PlayerDetails> GetPlayerDetails(int player_id)
+        {
+            var jsonPlayerDetails = await FPLClient.HttpClient.GetStringAsync($"element-summary/{player_id}/");
+
+            string jsonFuture = JObject.Parse(jsonPlayerDetails)["fixtures"].ToString();
+            string jsonPast = JObject.Parse(jsonPlayerDetails)["history"].ToString();
+            string jsonHistorical = JObject.Parse(jsonPlayerDetails)["history_past"].ToString();
+
+            PlayerDetails playerDetails = new PlayerDetails()
+            {
+                futureFixtures = JsonConvert.DeserializeObject<ICollection<PlayerFutureFixture>>(jsonFuture),
+                pastFixtures = JsonConvert.DeserializeObject<ICollection<PlayerPastFixture>>(jsonPast),
+                historicalFixtures = JsonConvert.DeserializeObject<ICollection<PlayerHistoricalFixture>>(jsonHistorical)
+            };
+            return playerDetails;
+        }
+
+        public async Task<ICollection<PlayerType>> GetPlayerTypes()
+        {
+            var json = await FPLClient.HttpClient.GetStringAsync("bootstrap-static/");
+            var jsonPlayerType = JObject.Parse(json)["element_types"].ToString();
+            return JsonConvert.DeserializeObject<ICollection<PlayerType>>(jsonPlayerType);
         }
     }
 }

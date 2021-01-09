@@ -21,6 +21,7 @@ namespace FPL_Forecaster
         {
             DataService.Data.Fixtures = fixtureClient.GetAllFixtures().Result;
             DataService.Data.Players = playerClient.GetAllPlayers().Result;
+            DataService.Enumerators.PlayerTypes = playerClient.GetPlayerTypes().Result;
         }
     }
 }
