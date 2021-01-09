@@ -15,10 +15,26 @@ namespace FPL_Forecaster.Clients
     {
         public async Task<ICollection<Player>> GetAllPlayers()
         {
+            //gets general data for players from general information endpoint
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var json = await FPLClient.HttpClient.GetStringAsync("bootstrap-static/");
             var jsonPlayer = JObject.Parse(json)["elements"].ToString();
-            return JsonConvert.DeserializeObject<ICollection<Player>>(jsonPlayer);
+            ICollection<Player> players = JsonConvert.DeserializeObject<ICollection<Player>>(jsonPlayer);
+
+            //gets detailed data for each player and adds it in to their model
+            foreach (Player player in players)
+            {
+                var jsonPlayerDetails = await FPLClient.HttpClient.GetStringAsync($"element-summary/{player.id}/");
+
+                string jsonFuture = JObject.Parse(jsonPlayerDetails)["fixtures"].ToString();
+                string jsonPast = JObject.Parse(jsonPlayerDetails)["history"].ToString();
+                string jsonHistorical = JObject.Parse(jsonPlayerDetails)["history_past"].ToString();
+
+                player.futureFixtures = JsonConvert.DeserializeObject<ICollection<PlayerFutureFixture>>(jsonFuture);
+                player.pastFixtures = JsonConvert.DeserializeObject<ICollection<PlayerPastFixture>>(jsonPast);
+                player.historicalFixtures = JsonConvert.DeserializeObject<ICollection<PlayerHistoricalFixture>>(jsonHistorical);
+            }
+            return players;
         }
     }
 }
