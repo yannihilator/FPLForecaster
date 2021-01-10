@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace FPL_Forecaster.Clients
+namespace FPLForecaster.Clients
 {
     internal static class FPLClient
     {

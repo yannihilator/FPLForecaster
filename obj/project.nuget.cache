@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "On0ivixLjiRi+PEBXPY4tAATvSnpuPUHYHX+4AGwf0sjrJzkwy72gEh6ghKxVZ3U5Nu0Y2hfaXsiqvCok/yuig==",
+  "dgSpecHash": "MmE5LkjZBlpKpb8LZjg5dlH7bXBDKDbc7M7uWXYJuPz6mSByM2Dwz047DBNyjnICnY2+r/8m63flQeeOIxOwaw==",
   "success": true,
-  "projectFilePath": "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj",
+  "projectFilePath": "/Users/yanni/Documents/Repos/FPLForecaster/FPLForecaster.csproj",
   "expectedPackageFiles": [
     "/Users/yanni/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
   ],

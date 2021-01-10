@@ -1,12 +1,12 @@
 using System;
-using FPL_Forecaster.Models;
+using FPLForecaster.Models;
 using System.Collections.Generic;
 using System.Net;   
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace FPL_Forecaster.Clients
+namespace FPLForecaster.Clients
 {
     public class ManagerClient
     {

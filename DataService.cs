@@ -1,7 +1,7 @@
-using FPL_Forecaster.Models;
+using FPLForecaster.Models;
 using System.Collections.Generic;
 
-namespace FPL_Forecaster
+namespace FPLForecaster
 {
     public static class DataService
     {

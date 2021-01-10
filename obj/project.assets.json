@@ -58,9 +58,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj",
-      "projectName": "FPL Forecaster",
-      "projectPath": "/Users/yanni/Documents/Repos/FPLForecaster/FPL Forecaster.csproj",
+      "projectUniqueName": "/Users/yanni/Documents/Repos/FPLForecaster/FPLForecaster.csproj",
+      "projectName": "FPLForecaster",
+      "projectPath": "/Users/yanni/Documents/Repos/FPLForecaster/FPLForecaster.csproj",
       "packagesPath": "/Users/yanni/.nuget/packages/",
       "outputPath": "/Users/yanni/Documents/Repos/FPLForecaster/obj/",
       "projectStyle": "PackageReference",
@@ -106,6 +106,9 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
+          "Microsoft.AspNetCore.App": {
+            "privateAssets": "none"
+          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }

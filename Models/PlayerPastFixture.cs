@@ -1,6 +1,6 @@
 using System;
 
-namespace FPL_Forecaster.Models
+namespace FPLForecaster.Models
 {
     public class PlayerPastFixture
     {

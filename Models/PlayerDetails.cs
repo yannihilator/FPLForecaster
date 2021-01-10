@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FPL_Forecaster.Models
+namespace FPLForecaster.Models
 {
     public class PlayerDetails
     {

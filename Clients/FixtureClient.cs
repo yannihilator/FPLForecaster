@@ -3,12 +3,12 @@ using System.Net;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using FPL_Forecaster.Models;
+using FPLForecaster.Models;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
-namespace FPL_Forecaster.Clients
+namespace FPLForecaster.Clients
 {
     public class FixtureClient
     {
