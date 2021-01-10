@@ -50,9 +50,10 @@ namespace FPLForecaster
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=ManagerView}/{id?}");
+                    pattern: "{controller=Page}/{action=ManagerView}/{id?}");
             });
-                        var controller = new Controllers.DataController();
+            
+            var controller = new Controllers.DataController();
             controller.GetData();
             var test = DataService.Data.Players.GroupBy(x => x?.element_type);
             foreach (IGrouping<int?, Models.Player> group in test)
