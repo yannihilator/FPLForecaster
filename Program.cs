@@ -17,6 +17,10 @@ namespace FPL_Forecaster
             {
                 Console.WriteLine($"{player.first_name} {player.second_name}: {player.total_points}");
             }
+            foreach (Models.ManagerGameweek gameweekData in DataService.Data.ManagerData)
+            {
+                Console.WriteLine($"Gameweek {gameweekData.@event} Total Points: {gameweekData.points}");
+            }
         }
     }
 }
