@@ -1,15 +1,30 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model ICollection<ManagerGameweek>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Please insert your manager ID to view your data.</p>
-    <form method="post" enctype="multipart/form-data" asp-controller="Data" asp-action="GetManagerData" asp-route-id="manager_id">
-        Manager ID: <input type="text" width="10"/>
+    <form method="post" enctype="multipart/form-data" asp-controller="Page" asp-action="ManagerView">
+        Manager ID: <input type="text" width="10" name="manager_id" id="manager_id"/>
         &nbsp;&nbsp;
-        <input type="submit" value="Get Data" style="background-color: aliceblue;"></>
-    @DataService.Data.ManagerData
+        <input type="submit" value="Get Data" style="background-color: aliceblue; "></>
+        <hr/>
+    @if (DataService.HasManagerData)
+    {
+        @foreach (ManagerGameweek gameweek in DataService.Data.ManagerData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
+        {
+            <div class="card" style="width: 18rem;margin-top:20px">
+                <div class="card-body">
+                    <h5 class="card-title">Gameweek @gameweek.number</h5>
+                    <p class="card-text">Points: @gameweek.points</p>
+                    @* <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="@identification.Id" style="margin-bottom:20px">Details</a> *@
+                    <p class="card-text"><small class="text-muted">Rank: @gameweek.rank</small></p>
+                </div>
+            </div>
+        }
+    }
     </form>
     
 </div>

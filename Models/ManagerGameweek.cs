@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;   
+using Newtonsoft.Json;
 
 namespace FPLForecaster.Models
 {
     public class ManagerGameweek
     {
-        public int @event { get; set; } 
+        [JsonProperty("event")]
+        public int number { get; set; } 
         public int points { get; set; } 
         public int total_points { get; set; } 
         public int rank { get; set; } 

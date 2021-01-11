@@ -24,6 +24,14 @@ namespace FPLForecaster.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult ManagerView(int manager_id)
+        {
+            if (DataService.Data.ManagerData == null) DataService.Data.ManagerData = new ManagerData();
+            DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.managerClient.GetManagerGameweeksData(manager_id).Result;
+            return View();
+        }
+
         public IActionResult PlayerView()
         {
             return View();
@@ -34,5 +42,7 @@ namespace FPLForecaster.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
     }
 }
