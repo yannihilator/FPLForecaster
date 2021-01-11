@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;   
 using Newtonsoft.Json;
 
-namespace FPLForecaster.Models
+namespace FPLForecaster.Models.Manager
 {
     public class ManagerGameweek
     {

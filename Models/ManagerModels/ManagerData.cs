@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace FPLForecaster.Models
+namespace FPLForecaster.Models.Manager
 {
     public class ManagerData
     {

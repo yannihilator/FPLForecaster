@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model ICollection<ManagerGameweek>
+@model ICollection<FPLForecaster.Models.Manager.ManagerGameweek>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -13,7 +13,10 @@
         <hr/>
     @if (DataService.HasManagerData)
     {
-        @foreach (ManagerGameweek gameweek in DataService.Data.ManagerData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
+        <h5>Name: @DataService.Data.ManagerData.ManagerInformation.name</h5>
+        <small class="text-muted">Joined: @DataService.Data.ManagerData.ManagerInformation.joined_time</small>
+        <hr/>
+        @foreach (FPLForecaster.Models.Manager.ManagerGameweek gameweek in DataService.Data.ManagerData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
         {
             <div class="card" style="width: 18rem;margin-top:20px">
                 <div class="card-body">

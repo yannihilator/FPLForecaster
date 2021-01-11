@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using FPLForecaster.Models.Manager;
 
 namespace FPLForecaster.Controllers
 {

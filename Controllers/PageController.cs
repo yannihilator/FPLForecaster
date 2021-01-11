@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FPLForecaster.Models;
 using FPLForecaster.Clients;
+using FPLForecaster.Models.Manager;
 
 namespace FPLForecaster.Controllers
 {
@@ -29,6 +30,7 @@ namespace FPLForecaster.Controllers
         {
             if (DataService.Data.ManagerData == null) DataService.Data.ManagerData = new ManagerData();
             DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.managerClient.GetManagerGameweeksData(manager_id).Result;
+            DataService.Data.ManagerData.ManagerInformation = DataService.Controller.managerClient.GetManagerGeneralInfo(manager_id).Result;
             return View();
         }
 

@@ -5,6 +5,7 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using FPLForecaster.Models.Manager;
 
 namespace FPLForecaster.Clients
 {
@@ -19,6 +20,13 @@ namespace FPLForecaster.Clients
             var json = await FPLClient.HttpClient.GetStringAsync($"entry/{manager_id}/history/");
             var jsonPlayer = JObject.Parse(json)["current"].ToString();
             return JsonConvert.DeserializeObject<ICollection<ManagerGameweek>>(jsonPlayer);
+        }
+
+        public async Task<ManagerGeneralInfo> GetManagerGeneralInfo(int manager_id)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var json = await FPLClient.HttpClient.GetStringAsync($"entry/{manager_id}/");
+            return JsonConvert.DeserializeObject<ManagerGeneralInfo>(json);
         }
     }
 }
