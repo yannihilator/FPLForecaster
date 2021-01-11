@@ -53,9 +53,8 @@ namespace FPLForecaster
                     pattern: "{controller=Page}/{action=ManagerView}/{id?}");
             });
             
-            var controller = new Controllers.DataController();
-            controller.GetData();
-            var test = DataService.Data.Players.GroupBy(x => x?.element_type);
+            
+/*             var test = DataService.Data.Players.GroupBy(x => x?.element_type);
             foreach (IGrouping<int?, Models.Player> group in test)
             {
                 Console.WriteLine("\n\n\n");
@@ -65,7 +64,7 @@ namespace FPLForecaster
                 {
                     Console.WriteLine($"{player.first_name} {player.second_name}: {player.total_points}");
                 }
-            }
+            } */
         }
     }
 }

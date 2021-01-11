@@ -4,5 +4,12 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Please insert your manager ID to view your data.</p>
+    <form method="post" enctype="multipart/form-data" asp-controller="Data" asp-action="GetManagerData" asp-route-id="manager_id">
+        Manager ID: <input type="text" width="10"/>
+        &nbsp;&nbsp;
+        <input type="submit" value="Get Data" style="background-color: aliceblue;"></>
+    @DataService.Data.ManagerData
+    </form>
+    
 </div>
