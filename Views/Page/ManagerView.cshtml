@@ -1,8 +1,36 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js">
+</script> 
+@{
+    ViewData["Title"] = "Manager View";
 }
 @using FPLForecaster.Models.Manager;
 @{var manData = DataService.Data.ManagerData;}
+
+<div id="gameweekPointsChart"></div>
+<script type="text/javascript">  
+
+    google.charts.load('current', {  
+        packages: ['corechart', 'line']  
+    });  
+    google.charts.setOnLoadCallback(drawGameweekPointsChart);
+
+    function drawGameweekPointsChart()
+    {
+        var dataArray = manData.ManagerGameweeks.OrderBy(x => x.number).Select(y => new {y.number, y.points}).ToArray();
+        
+        var chartData = new google.visualization.DataTable();
+        chartData.addColumn('number', 'Gameweek');
+        chartData.addColumn('number', 'Points');
+        chartData.addRows(dataArray);
+        var options = {
+            title: "Gameweek Points for Current Season",
+            pointSize: 5
+        }
+
+        var chart = new google.visualization.LineChart(document.getElementById('gameweekPointsChart'));
+        chart.draw(chartData, options);
+    }
+</script>
 
 <div class="text-center">
     @if (DataService.HasManagerData)
@@ -21,22 +49,14 @@
         &nbsp;&nbsp;
         <input type="submit" value="Get Data" style="background-color: #05386B; color: white; border-radius: 5px;"></>
         <hr/>
-    @if (DataService.HasManagerData)
-    {
-        <p>Team Name: <b>@manData.ManagerInformation.name</b></p>
-        <small class="text-muted">Joined: @manData.ManagerInformation.joined_time.ToShortDateString()</small>
-        <hr/>
-        @foreach (ManagerGameweek gameweek in manData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
+        @if (DataService.HasManagerData)
         {
-            <div class="card" style="width: 18rem;margin-top:20px">
-                <div class="card-body">
-                    <h5 class="card-title">Gameweek @gameweek.number</h5>
-                    <p class="card-text">Points: @gameweek.points</p>
-                    <p class="card-text"><small class="text-muted">Rank: @gameweek.rank</small></p>
-                </div>
-            </div>
+            @*Populates general manager information*@
+            <p>Team Name: <b>@manData.ManagerInformation.name</b></p>
+            <small class="text-muted">Joined: @manData.ManagerInformation.joined_time.ToShortDateString()</small>
+            <hr/>
         }
-    }
-    </form>
-    
+    </form> 
 </div>
+
+
