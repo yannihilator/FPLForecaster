@@ -1,28 +1,37 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model ICollection<FPLForecaster.Models.Manager.ManagerGameweek>
+@using FPLForecaster.Models.Manager;
+@{var manData = DataService.Data.ManagerData;}
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Please insert your manager ID to view your data.</p>
+    @if (DataService.HasManagerData)
+    {
+        <h1 class="display-4">Welcome <span style="color: #05386B;"><b>@manData.ManagerInformation.player_first_name @manData.ManagerInformation.player_last_name</b></span></h1>
+        <p>Please insert a different manager ID to view their data.</p>
+    }
+    else 
+    {
+        <h1 class="display-4">Welcome</h1>
+        <p>Please insert your manager ID to view your data.</p>
+    }
+
     <form method="post" enctype="multipart/form-data" asp-controller="Page" asp-action="ManagerView">
         Manager ID: <input type="text" width="10" name="manager_id" id="manager_id"/>
         &nbsp;&nbsp;
-        <input type="submit" value="Get Data" style="background-color: aliceblue; "></>
+        <input type="submit" value="Get Data" style="background-color: #05386B; color: white; border-radius: 5px;"></>
         <hr/>
     @if (DataService.HasManagerData)
     {
-        <h5>Name: @DataService.Data.ManagerData.ManagerInformation.name</h5>
-        <small class="text-muted">Joined: @DataService.Data.ManagerData.ManagerInformation.joined_time</small>
+        <p>Team Name: <b>@manData.ManagerInformation.name</b></p>
+        <small class="text-muted">Joined: @manData.ManagerInformation.joined_time.ToShortDateString()</small>
         <hr/>
-        @foreach (FPLForecaster.Models.Manager.ManagerGameweek gameweek in DataService.Data.ManagerData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
+        @foreach (ManagerGameweek gameweek in manData.ManagerGameweeks.OrderByDescending(x => x.number).ToList())
         {
             <div class="card" style="width: 18rem;margin-top:20px">
                 <div class="card-body">
                     <h5 class="card-title">Gameweek @gameweek.number</h5>
                     <p class="card-text">Points: @gameweek.points</p>
-                    @* <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="@identification.Id" style="margin-bottom:20px">Details</a> *@
                     <p class="card-text"><small class="text-muted">Rank: @gameweek.rank</small></p>
                 </div>
             </div>

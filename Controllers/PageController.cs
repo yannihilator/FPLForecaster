@@ -26,11 +26,14 @@ namespace FPLForecaster.Controllers
         }
 
         [HttpPost]
-        public IActionResult ManagerView(int manager_id)
+        public IActionResult ManagerView(int? manager_id)
         {
-            if (DataService.Data.ManagerData == null) DataService.Data.ManagerData = new ManagerData();
-            DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.managerClient.GetManagerGameweeksData(manager_id).Result;
-            DataService.Data.ManagerData.ManagerInformation = DataService.Controller.managerClient.GetManagerGeneralInfo(manager_id).Result;
+            if (manager_id != null && manager_id.ToString().All(x => char.IsNumber(x)))
+            {
+                if (DataService.Data.ManagerData == null) DataService.Data.ManagerData = new ManagerData();
+                DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.managerClient.GetManagerGameweeksData(manager_id.Value).Result;
+                DataService.Data.ManagerData.ManagerInformation = DataService.Controller.managerClient.GetManagerGeneralInfo(manager_id.Value).Result;
+            }
             return View();
         }
 
