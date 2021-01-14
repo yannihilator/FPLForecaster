@@ -1,0 +1,86 @@
+@{
+    var manData = DataService.Data.ManagerData;
+    var GameweekValues = manData?.ManagerGameweeks != null && manData?.ManagerGameweeks.Count > 0 ? 
+                    Newtonsoft.Json.JsonConvert.SerializeObject(manData.ManagerGameweeks.OrderBy(x => x.number).Select(y => y.number).ToList()) : null;
+    var GamweekPointsValues = manData?.ManagerGameweeks != null && manData?.ManagerGameweeks.Count > 0 ? 
+                    Newtonsoft.Json.JsonConvert.SerializeObject(manData.ManagerGameweeks.OrderBy(x => x.number).Select(y => y.points).ToList()) : null;  
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>  
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+
+<script type="text/javascript">  
+        Chart.defaults.global.legend.display = false;
+        $(function () {        
+            var chartName = "gameweekPointsChart";  
+            var ctx = document.getElementById(chartName).getContext('2d');  
+            var data = {  
+                    labels: @Html.Raw(GameweekValues),  
+                    datasets: [{  
+                        backgroundColor: [  
+                            'rgba(5, 56, 107, 0.4)'   
+                        ],  
+                        borderColor: [  
+                            'rgba(5, 56, 107, 1)'
+                        ],  
+                        borderWidth: 2,  
+                        data: @Html.Raw(GamweekPointsValues)  
+                    }]  
+            
+        };  
+
+        var options = {  
+            maintainAspectRatio: false, 
+            title: {
+                display: true,
+                fontSize: 18,
+                text: 'Gameweek Points for Current Season'
+            }, 
+            tooltips:{
+                callbacks:{
+                    label: function(tooltipItem, data){
+                        return data['datasets'][0]['data'][tooltipItem['index']] + ' points';
+                    },
+                    title: function(tooltipItem, data){
+                        return 'Gameweek ' + data['labels'][tooltipItem[0]['index']];
+                    }
+                }
+            },
+            scales: {  
+                yAxes: [{  
+                    ticks: {  
+                        min: 0,  
+                        beginAtZero: true  
+                    },  
+                    gridLines: {  
+                        display: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 14,
+                        labelString: 'Points'
+                    } 
+                }],  
+                xAxes: [{  
+                    ticks: {  
+                        min: 0,  
+                        beginAtZero: true 
+                    },  
+                    gridLines: {  
+                        display: true  
+                    },
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 14,
+                        labelString: 'Gameweek'
+                    }  
+                }]  
+            }  
+        };  
+
+        var myChart = new  Chart(ctx, {  
+                options: options,  
+                data: data,  
+                type:'line'  
+            });  
+        }); 
+</script>  

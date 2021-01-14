@@ -41,19 +41,19 @@
         </form> 
     </div>
 
-    <div class="box-body" style="margin-bottom:50px">  
-        <div class="chart-container">  
-            <canvas id="gameweekPointsChart" style="width:100%; height:500px"></canvas>  
-        </div>  
-    </div> 
-    <hr/>
-    <div class="box-body" style="margin-bottom:50px">  
-        <div class="chart-container">  
-            <canvas id="overallRankChart" style="width:100%; height:500px"></canvas>  
-        </div>  
-    </div>
     @if (manData != null && manData.ManagerInformation != null)
     {
+        <div class="box-body" style="margin-bottom:50px">  
+            <div class="chart-container">  
+                <canvas id="gameweekPointsChart" style="width:100%; height:500px"></canvas>  
+            </div>  
+        </div> 
+        <hr/>
+        <div class="box-body" style="margin-bottom:50px">  
+            <div class="chart-container">  
+                <canvas id="overallRankChart" style="width:100%; height:500px"></canvas>  
+            </div>  
+        </div>
         @foreach(FPLForecaster.Models.Manager.H2HLeague h2h in manData.ManagerInformation?.leagues?.h2h)
         {
             <hr/>
