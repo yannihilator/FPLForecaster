@@ -18,8 +18,8 @@ namespace FPLForecaster.Clients
             //gets all gameweeks data for current season for a manager given their id.
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var json = await FPLClient.HttpClient.GetStringAsync($"entry/{manager_id}/history/");
-            var jsonPlayer = JObject.Parse(json)["current"].ToString();
-            return JsonConvert.DeserializeObject<ICollection<ManagerGameweek>>(jsonPlayer);
+            var jsonManager = JObject.Parse(json)["current"].ToString();
+            return JsonConvert.DeserializeObject<ICollection<ManagerGameweek>>(jsonManager);
         }
 
         public async Task<ManagerGeneralInfo> GetManagerGeneralInfo(int manager_id)

@@ -53,18 +53,8 @@ namespace FPLForecaster
                     pattern: "{controller=Page}/{action=ManagerView}/{id?}");
             });
             
-            
-/*             var test = DataService.Data.Players.GroupBy(x => x?.element_type);
-            foreach (IGrouping<int?, Models.Player> group in test)
-            {
-                Console.WriteLine("\n\n\n");
-                Console.WriteLine(DataService.Enumerators.PlayerTypes.Where(x => x?.id == group.Key).FirstOrDefault()?.plural_name);
-                Console.WriteLine("****************************************************************");
-                foreach (Models.Player player in group.Where(y => y.total_points > 0).OrderByDescending(x => x?.total_points/x?.now_cost).ToList())
-                {
-                    Console.WriteLine($"{player.first_name} {player.second_name}: {player.total_points}");
-                }
-            } */
+            //Populates general data such as fixtures, players, and teams
+            DataService.Controller.GetGeneralData();
         }
     }
 }
