@@ -14,15 +14,15 @@
         $(function () {        
             var chartName = '@Model.chartId';  
             var ctx = document.getElementById(chartName).getContext('2d');  
-            var pointsData = {
-                    label: 'Total Points',
+            var dataset_1 = {
+                    label: '@Model.yLabel_1',
                     data: @Html.Raw(Model.yValuesJson_1),
                         backgroundColor: 'rgba(5, 56, 107, 0.6)',  
                         borderColor: 'rgba(5, 56, 107, 1)', 
                     borderWidth: 2
             }
-            var squadCostData = {
-                    label: 'Total Cost',
+            var dataset_2 = {
+                    label: '@Model.yLabel_2',
                     data: @Html.Raw(Model.yValuesJson_2),
                         backgroundColor: 'rgba(92, 219, 149, 0.6)',  
                         borderColor: 'rgba(92, 219, 149, 1)', 
@@ -31,7 +31,7 @@
             
             var data = {  
                     labels: @Html.Raw(Model.xLabelsJson),  
-                    datasets: [pointsData, squadCostData]         
+                    datasets: [dataset_1, dataset_2]         
              };  
 
         var options = {  

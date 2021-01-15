@@ -29,10 +29,12 @@
     {
         @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
             chartId = "teamChart",
-            chartTitle = "Team Data",
+            chartTitle = "Total Squad Points and Cost Comparison",
             xLabelsJson = teamNamesJson,
             yValuesJson_1 = teamPointsJson,
-            yValuesJson_2 = squadCostJson
+            yValuesJson_2 = squadCostJson,
+            yLabel_1 = "Total Fantasy Points",
+            yLabel_2 = "Total Squad Cost ($M)"
         }); 
         <hr/>
     }
