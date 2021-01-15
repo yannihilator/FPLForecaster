@@ -4,19 +4,25 @@
             Newtonsoft.Json.JsonConvert.SerializeObject(DataService.Data.Teams.Select(x => x?.name).ToList()) : null;
     string teamPointsJson = null;
     string squadCostJson = null;
+    string teamRoiJson = null;
     if(DataService.Data.Players != null && DataService.Data.Players.Count > 0) 
     {
         List<int> teamPoints = new List<int>();
         List<int> squadCost = new List<int>();
+        List<int> teamRoi = new List<int>();
         foreach (Team team in DataService.Data.Teams)
         {
             var playerData = DataService.Data.Players.Where(x => x.minutes > 0 && x.team == team.id)
                 .Select(y => new {y.total_points, y.now_cost}).ToList();
-            teamPoints.Add(playerData.Select(x => x.total_points).Sum());
-            squadCost.Add(playerData.Select(x => x.now_cost).Sum()/10);
+            var totalPoints = playerData.Select(x => x.total_points).Sum();
+            var totalCost = playerData.Select(x => x.now_cost).Sum()/10;
+            teamPoints.Add(totalPoints);
+            squadCost.Add(totalCost);
+            teamRoi.Add(totalPoints/totalCost);
         }
         teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
         squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);
+        teamRoiJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamRoi);
     }            
 }
 
@@ -28,15 +34,23 @@
     @if (teamNamesJson != null)
     {
         @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
-            chartId = "teamChart",
+            chartId = "teamCostVsPoints",
             chartTitle = "Total Squad Points and Cost Comparison",
             xLabelsJson = teamNamesJson,
             yValuesJson_1 = teamPointsJson,
             yValuesJson_2 = squadCostJson,
             yLabel_1 = "Total Fantasy Points",
-            yLabel_2 = "Total Squad Cost ($M)"
+            yLabel_2 = "Total Squad Cost ($M)",
+            height_pixels = "500"
         }); 
         <hr/>
+        @await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
+           chartId = "teamRoi",
+           chartTitle = "Team Squad ROI",
+           xValuesJson = teamNamesJson,
+           yValuesJson = teamRoiJson,
+           xLabel = "Team",
+           yLabel = "ROI Ratio"
+        });
     }
-    
 </body>

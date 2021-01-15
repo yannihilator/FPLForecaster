@@ -12,5 +12,6 @@ namespace FPLForecaster.Models
         public string xLabel {get;set;}
         public string yLabel_1 {get;set;}
         public string yLabel_2 {get;set;}
+        public string height_pixels {get;set;}
     }
 }

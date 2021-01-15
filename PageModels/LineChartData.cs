@@ -14,5 +14,6 @@ namespace FPLForecaster.Models
         public bool hoverLabelBefore {get;set;}
         public string hoverTitle {get;set;}
         public bool hoverTitleBefore {get;set;}
+        public string height_pixels {get;set;}
     }
 }

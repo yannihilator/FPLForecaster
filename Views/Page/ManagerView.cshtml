@@ -53,7 +53,8 @@
             hoverLabel = "Points: ",
             hoverLabelBefore = false,
             hoverTitle = "Gameweek ",
-            hoverTitleBefore = true
+            hoverTitleBefore = true,
+            height_pixels = "500"
         }); 
         <hr/>
         @await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
@@ -66,7 +67,8 @@
             hoverTitle = "Gameweek ",
             hoverTitleBefore = true,
             hoverLabel = "Overall Rank: ",
-            hoverLabelBefore = true
+            hoverLabelBefore = true,
+            height_pixels = "500"
         });
     }
 </body>
