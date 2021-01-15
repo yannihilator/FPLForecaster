@@ -14407,6 +14407,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Charts/_LineChart.cshtml",
+      "TargetPath": "Views\\Charts\\_LineChart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Shared/_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"

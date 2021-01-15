@@ -43,193 +43,30 @@
 
     @if (manData != null && manData.ManagerInformation != null)
     {
-        <div class="box-body" style="margin-bottom:50px">  
-            <div class="chart-container">  
-                <canvas id="gameweekPointsChart" style="width:100%; height:500px"></canvas>  
-            </div>  
-        </div> 
+        @await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
+            chartId = "gameweekPointsChart",
+            chartTitle = "Gameweek Points for Current Season",
+            xValuesJson = GameweekValues,
+            yValuesJson = GamweekPointsValues,
+            xLabel = "Gameweek",
+            yLabel = "Points",
+            hoverLabel = " points",
+            hoverLabelBefore = false,
+            hoverTitle = "Gameweek ",
+            hoverTitleBefore = true
+        }); 
         <hr/>
-        <div class="box-body" style="margin-bottom:50px">  
-            <div class="chart-container">  
-                <canvas id="overallRankChart" style="width:100%; height:500px"></canvas>  
-            </div>  
-        </div>
-        @foreach(FPLForecaster.Models.Manager.H2HLeague h2h in manData.ManagerInformation?.leagues?.h2h)
-        {
-            <hr/>
-            <div class="box-body" style="margin-bottom:50px">  
-                <div class="chart-container">  
-                    <canvas id=@h2h.name style="width:100%; height:500px"></canvas>  
-                </div>  
-            </div> 
-        }
+        @await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
+            chartId = "overallRankChart",
+            chartTitle = "Overall Rank for Current Season",
+            xValuesJson = GameweekValues,
+            yValuesJson = OverallRankValues,
+            xLabel = "Gameweek",
+            yLabel = "Rank",
+            hoverTitle = "Gameweek ",
+            hoverTitleBefore = true,
+            hoverLabel = "Overall Rank: ",
+            hoverLabelBefore = true
+        });
     }
 </body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>  
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
-
-@*Gamweek Points Chart*@
-<script type="text/javascript">  
-        Chart.defaults.global.legend.display = false;
-        $(function () {        
-            var chartName = "gameweekPointsChart";  
-            var ctx = document.getElementById(chartName).getContext('2d');  
-            var data = {  
-                    labels: @Html.Raw(GameweekValues),  
-                    datasets: [{  
-                        backgroundColor: [  
-                            'rgba(5, 56, 107, 0.4)'   
-                        ],  
-                        borderColor: [  
-                            'rgba(5, 56, 107, 1)'
-                        ],  
-                        borderWidth: 2,  
-                        data: @Html.Raw(GamweekPointsValues)  
-                    }]  
-            
-        };  
-
-        var options = {  
-            maintainAspectRatio: false, 
-            title: {
-                display: true,
-                fontSize: 18,
-                text: 'Gameweek Points for Current Season'
-            }, 
-            tooltips:{
-                callbacks:{
-                    label: function(tooltipItem, data){
-                        return data['datasets'][0]['data'][tooltipItem['index']] + ' points';
-                    },
-                    title: function(tooltipItem, data){
-                        return 'Gameweek ' + data['labels'][tooltipItem[0]['index']];
-                    }
-                }
-            },
-            scales: {  
-                yAxes: [{  
-                    ticks: {  
-                        min: 0,  
-                        beginAtZero: true  
-                    },  
-                    gridLines: {  
-                        display: true
-                    },
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 14,
-                        labelString: 'Points'
-                    } 
-                }],  
-                xAxes: [{  
-                    ticks: {  
-                        min: 0,  
-                        beginAtZero: true 
-                    },  
-                    gridLines: {  
-                        display: true  
-                    },
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 14,
-                        labelString: 'Gameweek'
-                    }  
-                }]  
-            }  
-        };  
-
-        var myChart = new  Chart(ctx, {  
-                options: options,  
-                data: data,  
-                type:'line'  
-            });  
-        }); 
-</script>  
-
-@*Overall Rank Chart*@
-<script type="text/javascript">  
-        Chart.defaults.global.legend.display = false;
-        $(function () {        
-            var chartName = "overallRankChart";  
-            var ctx = document.getElementById(chartName).getContext('2d');  
-            var data = {  
-                    labels: @Html.Raw(GameweekValues),  
-                    datasets: [{  
-                        backgroundColor: [ 
-                            'rgba(5, 56, 107, 0.4)', 
-                            'rgba(92, 219, 149, 0.4)'   
-                        ],  
-                        borderColor: [ 
-                            'rgba(5, 56, 107, 1)', 
-                            'rgba(92, 219, 149, 1)'
-                        ],  
-                        borderWidth: 2,  
-                        data: @Html.Raw(OverallRankValues)  
-                    }]  
-            
-        };  
-
-        var options = {  
-            maintainAspectRatio: false, 
-            title: {
-                display: true,
-                fontSize: 18,
-                text: 'Overall Rank for Current Season'
-            }, 
-            tooltips:{
-                callbacks:{
-                    label: function(tooltipItem, data){
-                        return 'Overall Rank: ' + data['datasets'][0]['data'][tooltipItem['index']];
-                    },
-                    title: function(tooltipItem, data){
-                        return 'Gameweek ' + data['labels'][tooltipItem[0]['index']];
-                    }
-                }
-            },
-            scales: {  
-                yAxes: [{  
-                    ticks: {  
-                        min: 0,  
-                        beginAtZero: true  
-                    },  
-                    gridLines: {  
-                        display: true
-                    },
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 14,
-                        labelString: 'Rank'
-                    } 
-                }],  
-                xAxes: [{  
-                    ticks: {  
-                        min: 0,  
-                        beginAtZero: true 
-                    },  
-                    gridLines: {  
-                        display: true  
-                    },
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 14,
-                        labelString: 'Gameweek'
-                    }  
-                }]  
-            }  
-        };  
-
-        var myChart = new  Chart(ctx, {  
-                options: options,  
-                data: data,  
-                type:'line'  
-            });  
-        }); 
-</script>  
-
-
-
-
-
-
-

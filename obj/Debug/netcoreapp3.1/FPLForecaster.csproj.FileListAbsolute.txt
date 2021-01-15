@@ -72,4 +72,4 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.genruntimeconfig.cache
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/ManagerView.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/PlayerView.cshtml.g.cs
-/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/GamweekPointsChart.cshtml.g.cs
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_LineChart.cshtml.g.cs
