@@ -37,6 +37,11 @@ namespace FPLForecaster.Controllers
             return View();
         }
 
+        public IActionResult TeamAnalysis()
+        {
+            return View();
+        }
+
         public IActionResult PlayerView()
         {
             return View();

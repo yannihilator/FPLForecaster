@@ -75,3 +75,4 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_LineChart.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/PlayerAnalysis.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/TeamAnalysis.cshtml.g.cs
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_BarChart.cshtml.g.cs

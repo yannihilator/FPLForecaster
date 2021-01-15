@@ -1,3 +1,40 @@
 @{
     ViewData["Title"] = "Team Analysis";
+    var teamNamesJson = DataService.Data.Teams != null && DataService.Data.Teams.Count > 0 ? 
+            Newtonsoft.Json.JsonConvert.SerializeObject(DataService.Data.Teams.Select(x => x?.name).ToList()) : null;
+    string teamPointsJson = null;
+    string squadCostJson = null;
+    if(DataService.Data.Players != null && DataService.Data.Players.Count > 0) 
+    {
+        List<int> teamPoints = new List<int>();
+        List<int> squadCost = new List<int>();
+        foreach (Team team in DataService.Data.Teams)
+        {
+            var playerData = DataService.Data.Players.Where(x => x?.minutes > 0 && x.team == team.id)
+                .Select(y => new {y.total_points, y.now_cost}).ToList();
+            teamPoints.AddRange(playerData.Select(x => x.total_points).ToList());
+            squadCost.AddRange(playerData.Select(x => x.now_cost).ToList());
+        }
+        teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
+        squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);
+    }            
 }
+
+<head>  
+    <meta name="viewport" content="width=device-width" />  
+    <title></title>  
+</head>  
+<body>  
+    @if (teamNamesJson != null)
+    {
+        @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
+            chartId = "teamChart",
+            chartTitle = "Team Data",
+            xLabelsJson = teamNamesJson,
+            yValuesJson_1 = teamPointsJson,
+            yValuesJson_2 = squadCostJson
+        }); 
+        <hr/>
+    }
+    
+</body>

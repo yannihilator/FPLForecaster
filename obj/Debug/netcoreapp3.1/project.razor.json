@@ -14440,6 +14440,11 @@
       "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Charts/_BarChart.cshtml",
+      "TargetPath": "Views\\Charts\\_BarChart.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.2"
