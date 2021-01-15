@@ -42,23 +42,11 @@
                 callbacks:{
                     label: function(tooltipItem, data){
                         var value = data['datasets'][0]['data'][tooltipItem['index']];
-                        var labelString = '';
-                        @{if (Model.hoverLabelBefore) {
-                            l;
-                        }
-                        else {
-                            return value + Model.hoverLabel;
-                        }
+                        return '@Model.hoverLabel' + value;
                     },
                     title: function(tooltipItem, data){
                         var value = data['labels'][tooltipItem[0]['index']];
-                        if ('@Model.hoverTitleBefore') {
-                            return '@Model.hoverTitle' + value;
-                        }
-                        else {
-                            return value + '@Model.hoverTitle';
-                        }
-                        //return 'testttt';
+                        return '@Model.hoverTitle' + value;
                     }
                 }
             },
