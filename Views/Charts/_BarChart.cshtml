@@ -19,16 +19,14 @@
                     data: @Html.Raw(Model.yValuesJson_1),
                         backgroundColor: 'rgba(5, 56, 107, 0.6)',  
                         borderColor: 'rgba(5, 56, 107, 1)', 
-                    borderWidth: 2,
-                    yAxisID: "y-axis-points"
+                    borderWidth: 2
             }
             var squadCostData = {
                     label: 'Total Cost',
                     data: @Html.Raw(Model.yValuesJson_2),
                         backgroundColor: 'rgba(92, 219, 149, 0.6)',  
                         borderColor: 'rgba(92, 219, 149, 1)', 
-                    borderWidth: 2,
-                    yAxisID: "y-axis-cost"
+                    borderWidth: 2
             }
             
             var data = {  
@@ -43,13 +41,7 @@
                 fontSize: 18,
                 text: '@Model.chartTitle'
             },
-            scales: {   
-                yAxes: [{  
-                    id: "y-axis-points"
-                }, 
-                {
-                    id: "y-axis-cost"
-                }],  
+            scales: {    
                 xAxes: [{  
                     barPercentage: 0.9,
                     categoryPercentage: 0.8

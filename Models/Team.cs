@@ -23,5 +23,8 @@ namespace FPLForecaster.Models
         public int strength_defence_home { get; set; } 
         public int strength_defence_away { get; set; } 
         public int pulse_id { get; set; } 
+        public int goals_for { get;set; }
+        public int goals_against { get;set; }
+        public int goal_differential {get => goals_for - goals_against;}
     }
 }

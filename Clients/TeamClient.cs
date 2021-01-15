@@ -21,7 +21,7 @@ namespace FPLForecaster.Clients
             return JsonConvert.DeserializeObject<ICollection<Team>>(jsonTeams);
         }
 
-        public async void UpdateTeamMatchData()
+        public void UpdateTeamMatchData()
         {
             if (DataService.Data.Fixtures != null && DataService.Data.Fixtures.Count > 0)
             {
@@ -43,7 +43,9 @@ namespace FPLForecaster.Clients
                                 team.points += 1;  
                                 team.draw += 1;
                             }
-                            else team.loss += 1;        
+                            else team.loss += 1; 
+                            team.goals_for += fix?.team_h_score.Value ?? 0;  
+                            team.goals_against += fix?.team_a_score.Value ?? 0;     
                         }
                         else
                         {
@@ -58,6 +60,8 @@ namespace FPLForecaster.Clients
                                 team.draw += 1;
                             }
                             else team.loss += 1;
+                            team.goals_for += fix?.team_a_score.Value ?? 0;  
+                            team.goals_against += fix?.team_h_score.Value ?? 0; 
                         }
                         team.played += 1;
                     }

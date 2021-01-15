@@ -10,10 +10,10 @@
         List<int> squadCost = new List<int>();
         foreach (Team team in DataService.Data.Teams)
         {
-            var playerData = DataService.Data.Players.Where(x => x?.minutes > 0 && x.team == team.id)
+            var playerData = DataService.Data.Players.Where(x => x.minutes > 0 && x.team == team.id)
                 .Select(y => new {y.total_points, y.now_cost}).ToList();
-            teamPoints.AddRange(playerData.Select(x => x.total_points).ToList());
-            squadCost.AddRange(playerData.Select(x => x.now_cost).ToList());
+            teamPoints.Add(playerData.Select(x => x.total_points).Sum());
+            squadCost.Add(playerData.Select(x => x.now_cost).Sum()/10);
         }
         teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
         squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);

@@ -20,7 +20,6 @@ namespace FPLForecaster.Clients
             var json = await FPLClient.HttpClient.GetStringAsync("bootstrap-static/");
             var jsonPlayer = JObject.Parse(json)["elements"].ToString();
             ICollection<Player> players = JsonConvert.DeserializeObject<ICollection<Player>>(jsonPlayer);
-
             return players;
         }
 
