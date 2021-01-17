@@ -8,8 +8,8 @@
     if(DataService.Data.Players != null && DataService.Data.Players.Count > 0) 
     {
         List<int> teamPoints = new List<int>();
-        List<int> squadCost = new List<int>();
-        List<int> teamRoi = new List<int>();
+        List<double> squadCost = new List<double>();
+        List<double> teamRoi = new List<double>();
         foreach (Team team in DataService.Data.Teams)
         {
             var playerData = DataService.Data.Players.Where(x => x.minutes > 0 && x.team == team.id)
@@ -18,7 +18,7 @@
             var totalCost = playerData.Select(x => x.now_cost).Sum()/10;
             teamPoints.Add(totalPoints);
             squadCost.Add(totalCost);
-            teamRoi.Add(totalPoints/totalCost);
+            teamRoi.Add(Convert.ToDouble(totalPoints/totalCost));
         }
         teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
         squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);

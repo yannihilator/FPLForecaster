@@ -14437,6 +14437,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Page/FPLTeamPicks.cshtml",
+      "TargetPath": "Views\\Page\\FPLTeamPicks.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
