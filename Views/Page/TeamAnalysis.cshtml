@@ -18,7 +18,7 @@
             var totalCost = playerData.Select(x => x.now_cost).Sum()/10;
             teamPoints.Add(totalPoints);
             squadCost.Add(totalCost);
-            teamRoi.Add(Convert.ToDouble(totalPoints/totalCost));
+            teamRoi.Add(Math.Round((double)totalPoints/totalCost, 2, MidpointRounding.AwayFromZero));
         }
         teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
         squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);
