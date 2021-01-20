@@ -1,28 +1,50 @@
 @{
     ViewData["Title"] = "Team Analysis";
+    //list variables
+    List<int> teamPoints = null;
+    List<double> squadCost = null;
+    List<double> teamRoi = null;
+    List<int> teamPlayers = null;
+    List<double> playerAveragePoints = null;
+
+    //json variables
     var teamNamesJson = DataService.Data.Teams != null && DataService.Data.Teams.Count > 0 ? 
             Newtonsoft.Json.JsonConvert.SerializeObject(DataService.Data.Teams.Select(x => x?.name).ToList()) : null;
     string teamPointsJson = null;
     string squadCostJson = null;
     string teamRoiJson = null;
+    string teamPlayersJson = null;
+    string playerAveragePointsJson = null;
+
     if(DataService.Data.Players != null && DataService.Data.Players.Count > 0) 
     {
-        List<int> teamPoints = new List<int>();
-        List<double> squadCost = new List<double>();
-        List<double> teamRoi = new List<double>();
+        teamPoints = new List<int>();
+        squadCost = new List<double>();
+        teamRoi = new List<double>();
+        teamPlayers = new List<int>();
+        playerAveragePoints = new List<double>();
+
         foreach (Team team in DataService.Data.Teams)
         {
             var playerData = DataService.Data.Players.Where(x => x.minutes > 0 && x.team == team.id)
                 .Select(y => new {y.total_points, y.now_cost}).ToList();
             var totalPoints = playerData.Select(x => x.total_points).Sum();
             var totalCost = playerData.Select(x => x.now_cost).Sum()/10;
+            var playerCount = DataService.Data.Players.Where(x => x.team == team.id 
+                && (double)x.minutes/(DataService.Data.Fixtures.Where(y => y.finished == true && (y.team_a == team.id ||
+                y.team_h == team.id)).Count() * 90) > 0.5).Count();
+
             teamPoints.Add(totalPoints);
             squadCost.Add(totalCost);
             teamRoi.Add(Math.Round((double)totalPoints/totalCost, 2, MidpointRounding.AwayFromZero));
+            teamPlayers.Add(playerCount);
+            playerAveragePoints.Add(Math.Round((double)totalPoints/playerCount, 2, MidpointRounding.AwayFromZero));
         }
         teamPointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPoints);
         squadCostJson = Newtonsoft.Json.JsonConvert.SerializeObject(squadCost);
         teamRoiJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamRoi);
+        teamPlayersJson = Newtonsoft.Json.JsonConvert.SerializeObject(teamPlayers);
+        playerAveragePointsJson = Newtonsoft.Json.JsonConvert.SerializeObject(playerAveragePoints);
     }            
 }
 
@@ -52,5 +74,16 @@
            xLabel = "Team",
            yLabel = "ROI Ratio"
         });
+        <hr/>
+        @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
+            chartId = "teamAveragePointsVsPlayers",
+            chartTitle = "Team Average Player Points and Total Players",
+            xLabelsJson = teamNamesJson,
+            yValuesJson_1 = playerAveragePointsJson,
+            yValuesJson_2 = teamPlayersJson,
+            yLabel_1 = "Average Points per Player",
+            yLabel_2 = "Number of Players with Minutes",
+            height_pixels = "500"
+        }); 
     }
 </body>
