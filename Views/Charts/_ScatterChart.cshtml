@@ -1,0 +1,93 @@
+@model FPLForecaster.Models.LineChartData;
+
+<div class="box-body" style="margin-bottom:50px">  
+    <div class="chart-container">  
+        <canvas id="@Model.chartId" style="width:100%; height:@Model.height_pixels px"></canvas>  
+    </div>  
+</div> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>  
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+
+<script type="text/javascript">  
+        Chart.defaults.global.legend.display = false;
+        $(function () {        
+            var chartName = '@Model.chartId';  
+            var ctx = document.getElementById(chartName).getContext('2d');  
+            var data = {  
+                    labels: @Html.Raw(Model.xValuesJson),  
+                    datasets: [{  
+                        backgroundColor: [ 
+                            'rgba(5, 56, 107, 0.4)', 
+                            'rgba(92, 219, 149, 0.4)'   
+                        ],  
+                        borderColor: [ 
+                            'rgba(5, 56, 107, 1)', 
+                            'rgba(92, 219, 149, 1)'
+                        ],  
+                        borderWidth: 2,  
+                        pointHoverBackgroundColor: 'rgba(92, 219, 149, 1)',
+                        pointHoverBorderColor: 'rgba(5, 56, 107, 1)',
+                        data: @Html.Raw(Model.yValuesJson)  
+                    }]  
+            
+        };  
+
+        var options = {  
+            maintainAspectRatio: false, 
+            title: {
+                display: true,
+                fontSize: 18,
+                text: '@Model.chartTitle'
+            }, 
+            tooltips:{
+                callbacks:{
+                    label: function(tooltipItem, data){
+                        var value = data['datasets'][0]['data'][tooltipItem['index']];
+                        return '@Model.hoverLabel' + value;
+                    },
+                    title: function(tooltipItem, data){
+                        var value = data['labels'][tooltipItem[0]['index']];
+                        return '@Model.hoverTitle' + value;
+                    }
+                }
+            },
+            scales: {  
+                yAxes: [{  
+                    ticks: {  
+                        min: 0,  
+                        beginAtZero: true  
+                    },  
+                    gridLines: {  
+                        display: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 14,
+                        labelString: '@Model.yLabel'
+                    } 
+                }],  
+                xAxes: [{  
+                    ticks: {  
+                        min: 0,  
+                        beginAtZero: true 
+                    },  
+                    gridLines: {  
+                        display: true  
+                    },
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 14,
+                        labelString: '@Model.xLabel'
+                    }  
+                }]  
+            }  
+        };  
+
+        var myChart = new  Chart(ctx, {  
+                options: options,  
+                data: data,  
+                type:'line'  
+            });  
+        }); 
+</script>  

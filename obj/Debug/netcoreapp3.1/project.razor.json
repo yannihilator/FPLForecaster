@@ -14407,8 +14407,13 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Page/PlayerView.cshtml",
-      "TargetPath": "Views\\Page\\PlayerView.cshtml",
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Charts/_ScatterChart.cshtml",
+      "TargetPath": "Views\\Charts\\_ScatterChart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Page/Privacy.cshtml",
+      "TargetPath": "Views\\Page\\Privacy.cshtml",
       "FileKind": "mvc"
     },
     {

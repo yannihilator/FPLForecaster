@@ -71,9 +71,10 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.pdb
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.genruntimeconfig.cache
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/ManagerView.cshtml.g.cs
-/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/PlayerView.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_LineChart.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/PlayerAnalysis.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/TeamAnalysis.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_BarChart.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/FPLTeamPicks.cshtml.g.cs
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Charts/_ScatterChart.cshtml.g.cs
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/Privacy.cshtml.g.cs
