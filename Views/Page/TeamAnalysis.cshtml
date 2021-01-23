@@ -53,6 +53,11 @@
     <title></title>  
 </head>  
 <body>  
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" href="#">All Gameweeks</a>
+        <a class="nav-item nav-link" href="#">Last 5 Gameweeks</a>
+        <a class="nav-item nav-link" href="#">Last 10 Gameweeks</a>
+    </nav>
     @if (teamNamesJson != null)
     {
         @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
