@@ -39,7 +39,8 @@ namespace FPLForecaster.Analysis
                             playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "forward"
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
-                            && chosenTeam.Contains(x) == false).FirstOrDefault());
+                            && chosenTeam.Contains(x) == false
+                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
                         forwardCount--;
                     }
                     if (midfielderCount > 0)
@@ -48,7 +49,8 @@ namespace FPLForecaster.Analysis
                             playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "midfielder"
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
-                            && chosenTeam.Contains(x) == false).FirstOrDefault());
+                            && chosenTeam.Contains(x) == false
+                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
                         midfielderCount--;
                     }
                     if (defenderCount > 0)
@@ -57,7 +59,8 @@ namespace FPLForecaster.Analysis
                             playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "defender"
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
-                            && chosenTeam.Contains(x) == false).FirstOrDefault());
+                            && chosenTeam.Contains(x) == false
+                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
                         defenderCount--;
                     }
                     if (goalkeeperCount > 0)
@@ -66,7 +69,8 @@ namespace FPLForecaster.Analysis
                             playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "goalkeeper"
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
-                            && chosenTeam.Contains(x) == false).FirstOrDefault());
+                            && chosenTeam.Contains(x) == false
+                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
                         goalkeeperCount--;
                     }
                     counter++;
