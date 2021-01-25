@@ -1,5 +1,39 @@
 @{
     ViewData["Title"] = "Team Picks";
-    
+
     var chosenTeam = FPLForecaster.Analysis.TeamPicker.AITeam();
 }
+
+@foreach(var positions in chosenTeam.GroupBy(x => x.element_type).Reverse().ToList())
+{
+    <div class="row justify-content-md-center">
+        @foreach(Player player in positions)
+        {
+            <div class="card" style="width: 10rem;margin:10px">
+                @*<img class="card-img-top" src="/Resources/placeholder.png" alt="Card image cap">*@
+                <div class="card-body">
+                    <h6 class="card-title">@player.first_name @player.second_name</h6>
+                    <p class="card-text"><small class="text-muted">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>     
+                </div>
+            </div>
+            <p></p>
+        }
+    </div>
+}
+<hr/>
+@* @await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
+    chartId = "aiPointsChart",
+    chartTitle = "Gameweek Points for AI Team Picks",
+    xValuesJson = GameweekValues,
+    yValuesJson = GamweekPointsValues,
+    xLabel = "Gameweek",
+    yLabel = "Points",
+    hoverLabel = "Points: ",
+    hoverLabelBefore = false,
+    hoverTitle = "Gameweek ",
+    hoverTitleBefore = true,
+    height_pixels = "500"
+});   *@
+
+
