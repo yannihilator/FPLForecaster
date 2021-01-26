@@ -6,14 +6,23 @@
     var gameweekValues = DataService.Data.Fixtures.Where(x => x.finished == true).Select(x => x.number).Distinct().OrderBy(x => x).ToList();
     var gameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekValues);
     
-    var managerGameweekValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points + x.points_on_bench).ToList();
+    //non-bench points values
+    var managerGameweekValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points).ToList();
     var managerGameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(managerGameweekValues);
-    var gameweekPointsValues = new List<int>();
+
+    //total values
+    var managerGameweekTotalValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points + x.points_on_bench).ToList();
+    var managerGameweekTotalValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(managerGameweekTotalValues);
+    
+    var gameweekPointsTotalValues = new List<int>();
     foreach (int gameweek in gameweekValues)
     {
-        gameweekPointsValues.Add(chosenTeam.Sum(x => x.playerDetails.pastFixtures.Where(y => DataService.Data.Fixtures.Where(f => f.id == y.fixture).FirstOrDefault().number == gameweek).FirstOrDefault()?.total_points.Value ?? 0));
+        gameweekPointsTotalValues.Add(chosenTeam.Sum(x => x.playerDetails.pastFixtures.Where(y => DataService.Data.Fixtures.Where(f => f.id == y.fixture).FirstOrDefault().number == gameweek).FirstOrDefault()?.total_points.Value ?? 0));
     }
-    var gameweekPointsValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekPointsValues); 
+
+    var gameweekPointsValues = gameweekPointsTotalValues.Select(x => (double)x*11/15).ToList();
+    var gameweekPointsTotalValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekPointsTotalValues); 
+    var gameweekPointsValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekPointsValues);
 }
 
 @foreach(var positions in chosenTeam.GroupBy(x => x.element_type).Reverse().ToList())
@@ -42,6 +51,26 @@
     chartId = "aiPointsChart",
     chartTitle = "Gameweek Points for AI Team Picks",
     xValuesJson = gameweekValuesJson,
+    yValuesJson = gameweekPointsTotalValuesJson,
+    yValuesJson2 = managerGameweekTotalValuesJson,
+    xLabel = "Gameweek",
+    yLabel = "Points",
+    hoverLabel = "Points: ",
+    hoverLabelBefore = false,
+    hoverTitle = "Gameweek ",
+    hoverTitleBefore = true,
+    height_pixels = "500"
+})
+&nbsp;
+<p class="text-center">AI Team Total Points: @gameweekPointsTotalValues.Sum()</p>
+<p class="text-center">Manager Team Total Points: @managerGameweekTotalValues.Sum()</p>
+@{var percentageImprovementTotal = Math.Round((double)((gameweekPointsTotalValues.Sum()-managerGameweekTotalValues.Sum())*100/managerGameweekTotalValues.Sum()).Value,2,MidpointRounding.AwayFromZero);}
+<p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovementTotal %</p>   
+<hr/>
+@await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
+    chartId = "aiPointsChart",
+    chartTitle = "Gameweek Points for AI Team Picks",
+    xValuesJson = gameweekValuesJson,
     yValuesJson = gameweekPointsValuesJson,
     yValuesJson2 = managerGameweekValuesJson,
     xLabel = "Gameweek",
@@ -52,10 +81,9 @@
     hoverTitleBefore = true,
     height_pixels = "500"
 })
-<hr/>
+&nbsp;
 <p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
 <p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
-@{var percentageImprovement = Math.Round((double)((gameweekPointsValues.Sum()-managerGameweekValues.Sum())*100/managerGameweekValues.Sum()).Value,2,MidpointRounding.AwayFromZero);}
+@{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum(), gameweekPointsValues.Sum());}
 <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
-
 
