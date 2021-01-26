@@ -40,7 +40,7 @@ namespace FPLForecaster.Analysis
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
                             && chosenTeam.Contains(x) == false
-                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
+                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
                         forwardCount--;
                     }
                     if (midfielderCount > 0)
@@ -50,7 +50,7 @@ namespace FPLForecaster.Analysis
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
                             && chosenTeam.Contains(x) == false
-                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
+                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
                         midfielderCount--;
                     }
                     if (defenderCount > 0)
@@ -60,7 +60,7 @@ namespace FPLForecaster.Analysis
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
                             && chosenTeam.Contains(x) == false
-                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
+                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
                         defenderCount--;
                     }
                     if (goalkeeperCount > 0)
@@ -70,7 +70,7 @@ namespace FPLForecaster.Analysis
                             && teamCost - (double)x.now_cost/10 > 0
                             && x.status == "a"
                             && chosenTeam.Contains(x) == false
-                            && (chosenTeam.Count(z => z.team == x.team) < 4) == true).FirstOrDefault());
+                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
                         goalkeeperCount--;
                     }
                     counter++;

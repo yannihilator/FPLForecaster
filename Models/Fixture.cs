@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace FPLForecaster.Models
 {
     public class Fixture
     {
-        public int code { get; set; } 
-        public int? @event { get; set; } 
+        [JsonProperty("event")]
+        public int? number { get; set; } 
+        public int code { get; set; }  
         public bool finished { get; set; } 
         public bool finished_provisional { get; set; } 
         public int id { get; set; } 
