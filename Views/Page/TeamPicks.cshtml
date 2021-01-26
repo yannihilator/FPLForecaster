@@ -22,11 +22,11 @@
         @foreach(Player player in positions)
         {
             var playerPhotoUrl = $"https://resources.premierleague.com/premierleague/photos/players/110x140/p{player.code}.png";
-            <div class="card justify-content-md-center" style="width: 10rem;margin:10px">
-                <img class="card-img-top" src="@playerPhotoUrl" alt="Card image cap">
+            <div class="card" style="width: 10rem;margin:10px">
+                <img class="card-img-top" src="@playerPhotoUrl" alt="">
                 <div class="card-body">
-                    <h6 class="card-title">@player.first_name @player.second_name</h6>
-                    <p class="card-text"><small class="text-muted">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+                    <h6 class="card-title" style="margin-bottom: 0; position: absolute; top: 0;">@player.first_name @player.second_name</h6>
+                    <p class="card-text" style="position: absolute; bottom: 0;"><small class="text-muted">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
                     @*<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>*@     
                 </div>
             </div>
