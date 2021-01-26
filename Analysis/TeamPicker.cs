@@ -13,7 +13,8 @@ namespace FPLForecaster.Analysis
 
             //gets players that 
             List<Player> playersByRoi = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ? 
-                DataService.Data.Players.OrderByDescending(x => Convert.ToDouble(x.total_points/x.now_cost)).ToList() : null;
+                DataService.Data.Players.OrderByDescending(x => Convert.ToDouble(x.total_points/x.now_cost))
+                .ToList() : null;
             List<Player> playersByPoints = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ?
                 DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null;
                 

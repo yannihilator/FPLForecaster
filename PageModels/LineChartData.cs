@@ -8,6 +8,7 @@ namespace FPLForecaster.Models
         public string chartTitle {get;set;}
         public string xValuesJson {get;set;}
         public string yValuesJson {get;set;}
+        public string yValuesJson2 {get;set;}
         public string xLabel {get;set;}
         public string yLabel {get;set;}
         public string hoverLabel {get;set;}

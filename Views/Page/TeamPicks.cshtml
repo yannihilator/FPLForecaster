@@ -6,10 +6,11 @@
     var gameweekValues = DataService.Data.Fixtures.Where(x => x.finished == true).Select(x => x.number).Distinct().OrderBy(x => x).ToList();
     var gameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekValues);
     
+    var managerGameweekValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points + x.points_on_bench).ToList();
+    var managerGameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(managerGameweekValues);
     var gameweekPointsValues = new List<int>();
     foreach (int gameweek in gameweekValues)
     {
-
         gameweekPointsValues.Add(chosenTeam.Sum(x => x.playerDetails.pastFixtures.Where(y => DataService.Data.Fixtures.Where(f => f.id == y.fixture).FirstOrDefault().number == gameweek).FirstOrDefault()?.total_points.Value ?? 0));
     }
     var gameweekPointsValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekPointsValues); 
@@ -23,11 +24,11 @@
         {
             var playerPhotoUrl = $"https://resources.premierleague.com/premierleague/photos/players/110x140/p{player.code}.png";
             <div class="card text-center border-dark" style="width: 10rem;margin:10px">
-                <div class="card-header">
-                    <p class="card-text" ><small class="text-muted">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+                <div class="card-header" style="background-color: #05386B;">
+                    <p class="card-text" ><small class="text-white">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
                 </div>
                 <img class="card-img-top" src="@playerPhotoUrl" alt="" style="background-color: #EDF5E1;">
-                <div class="card-body">
+                <div class="card-body text-white" style="background-color: rgba(5, 56, 107, 0.4);">
                     <h6 class="card-title" style="margin-bottom: 0;">@player.first_name @player.second_name</h6>       
                     @*<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>*@     
                 </div>
@@ -37,11 +38,12 @@
     </div>
 }
 <hr/>
-@await Html.PartialAsync("/Views/Charts/_LineChart.cshtml", new FPLForecaster.Models.LineChartData(){
+@await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
     chartId = "aiPointsChart",
     chartTitle = "Gameweek Points for AI Team Picks",
     xValuesJson = gameweekValuesJson,
     yValuesJson = gameweekPointsValuesJson,
+    yValuesJson2 = managerGameweekValuesJson,
     xLabel = "Gameweek",
     yLabel = "Points",
     hoverLabel = "Points: ",
@@ -49,6 +51,11 @@
     hoverTitle = "Gameweek ",
     hoverTitleBefore = true,
     height_pixels = "500"
-})   
+})
+<hr/>
+<p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
+<p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
+@{var percentageImprovement = Math.Round((double)((gameweekPointsValues.Sum()-managerGameweekValues.Sum())*100/managerGameweekValues.Sum()).Value,2,MidpointRounding.AwayFromZero);}
+<p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
 
 
