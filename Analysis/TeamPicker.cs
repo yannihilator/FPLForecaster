@@ -17,9 +17,6 @@ namespace FPLForecaster.Analysis
                 .ToList() : null;
             List<Player> playersByPoints = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ?
                 DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null;
-                
-            //cost variable
-            double teamCost = 100.0;
             
             //counters
             int goalkeeperCount = 2;
@@ -36,47 +33,29 @@ namespace FPLForecaster.Analysis
                     var playerTypes = DataService.Enumerators.PlayerTypes;
                     if (forwardCount > 0)
                     {      
-                        chosenTeam.Add(playerList.Where(x => 
-                            playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "forward"
-                            && teamCost - (double)x.now_cost/10 > 0
-                            && x.status == "a"
-                            && chosenTeam.Contains(x) == false
-                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
+                        chosenTeam.Add(GetPlayerAlgorithm(playerList,chosenTeam,"forward"));
                         forwardCount--;
                     }
                     if (midfielderCount > 0)
                     {
-                        chosenTeam.Add(playerList.Where(x => 
-                            playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "midfielder"
-                            && teamCost - (double)x.now_cost/10 > 0
-                            && x.status == "a"
-                            && chosenTeam.Contains(x) == false
-                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
+                        chosenTeam.Add(GetPlayerAlgorithm(playerList,chosenTeam,"midfielder"));
                         midfielderCount--;
                     }
                     if (defenderCount > 0)
                     {
-                        chosenTeam.Add(playerList.Where(x => 
-                            playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "defender"
-                            && teamCost - (double)x.now_cost/10 > 0
-                            && x.status == "a"
-                            && chosenTeam.Contains(x) == false
-                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
+                        chosenTeam.Add(GetPlayerAlgorithm(playerList,chosenTeam,"defender"));
                         defenderCount--;
                     }
                     if (goalkeeperCount > 0)
                     {
-                        chosenTeam.Add(playerList.Where(x => 
-                            playerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == "goalkeeper"
-                            && teamCost - (double)x.now_cost/10 > 0
-                            && x.status == "a"
-                            && chosenTeam.Contains(x) == false
-                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault());
+                        chosenTeam.Add(GetPlayerAlgorithm(playerList,chosenTeam,"goalkeeper"));
                         goalkeeperCount--;
                     }
                     counter++;
                 }
             }
+
+            var sum = chosenTeam.Sum(x => x?.now_cost);
 
             foreach (Player player in chosenTeam)
             {
@@ -84,6 +63,18 @@ namespace FPLForecaster.Analysis
             }
 
             return chosenTeam;
+        }
+
+        public static Player GetPlayerAlgorithm(List<Player> playerList, List<Player> chosenTeam, string position)
+        {
+            var minCost = DataService.Data.Players.Where(x => DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position)
+                .Select(x => x.now_cost).Min();
+            return playerList.Where(x => 
+                            DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position
+                            && chosenTeam.Sum(y => y.now_cost) + x.now_cost <= 1000 - minCost
+                            && x.status == "a"
+                            && chosenTeam.Contains(x) == false
+                            && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault();
         }
     }
 }

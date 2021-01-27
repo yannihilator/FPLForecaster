@@ -25,6 +25,8 @@
     var gameweekPointsValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekPointsValues);
 }
 
+<h4 class="text-center">Total Squad Cost: $@chosenTeam.Sum(x=>x.now_cost/10)M</h4>
+<hr/>
 @foreach(var positions in chosenTeam.GroupBy(x => x.element_type).Reverse().ToList())
 {
     <h5 class="text-center">@DataService.Enumerators.PlayerTypes.Where(x => x.id == positions.FirstOrDefault()?.element_type)?.FirstOrDefault()?.plural_name</h5>
@@ -38,7 +40,7 @@
                 </div>
                 <img class="card-img-top" src="@playerPhotoUrl" alt="" style="background-color: #EDF5E1;">
                 <div class="card-body text-white" style="background-color: rgba(5, 56, 107, 0.4);">
-                    <h6 class="card-title" style="margin-bottom: 0;">@player.first_name @player.second_name</h6>       
+                    <h6 class="card-title" style="margin-bottom: 0;">@player.web_name</h6>       
                     @*<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>*@     
                 </div>
             </div>
@@ -48,8 +50,8 @@
 }
 <hr/>
 @await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
-    chartId = "aiPointsChart",
-    chartTitle = "Gameweek Points for AI Team Picks",
+    chartId = "aiTotalPointsChart",
+    chartTitle = "Gameweek Total Points for AI Team Picks",
     xValuesJson = gameweekValuesJson,
     yValuesJson = gameweekPointsTotalValuesJson,
     yValuesJson2 = managerGameweekTotalValuesJson,
@@ -64,12 +66,12 @@
 &nbsp;
 <p class="text-center">AI Team Total Points: @gameweekPointsTotalValues.Sum()</p>
 <p class="text-center">Manager Team Total Points: @managerGameweekTotalValues.Sum()</p>
-@{var percentageImprovementTotal = Math.Round((double)((gameweekPointsTotalValues.Sum()-managerGameweekTotalValues.Sum())*100/managerGameweekTotalValues.Sum()).Value,2,MidpointRounding.AwayFromZero);}
+@{var percentageImprovementTotal = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekTotalValues.Sum().Value, gameweekPointsTotalValues.Sum());}
 <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovementTotal %</p>   
 <hr/>
 @await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
     chartId = "aiPointsChart",
-    chartTitle = "Gameweek Points for AI Team Picks",
+    chartTitle = "Gameweek Points (Non-Bench Points) for AI Team Picks",
     xValuesJson = gameweekValuesJson,
     yValuesJson = gameweekPointsValuesJson,
     yValuesJson2 = managerGameweekValuesJson,
@@ -84,6 +86,6 @@
 &nbsp;
 <p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
 <p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
-@{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum(), gameweekPointsValues.Sum());}
+@{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
 <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
 
