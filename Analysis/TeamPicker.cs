@@ -97,7 +97,7 @@ namespace FPLForecaster.Analysis
             //additional data about player. Will not be disposed at the end of algorithm, as there is no need to keep it
             //and consume memory if the player will not be selected
             var playerDetails = DataService.Controller.playerClient.GetPlayerDetails(player.id).Result;
-            var lastTenGames = playerDetails.pastFixtures.TakeLast(5);
+            var lastTenGames = playerDetails.pastFixtures.TakeLast(10);
 
             //initializing metrics to take into consideration about each player. Takes into consideration their last 10 games
             //*************************************************************************************************

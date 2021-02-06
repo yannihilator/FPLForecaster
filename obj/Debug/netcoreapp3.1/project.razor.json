@@ -14452,6 +14452,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Page/Error.cshtml",
+      "TargetPath": "Views\\Page\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
