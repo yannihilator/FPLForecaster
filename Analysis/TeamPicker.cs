@@ -105,19 +105,38 @@ namespace FPLForecaster.Analysis
             int weight_teamPosition = 1;
             double teamPosition = Math.Pow((double)DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.position, -1)*20;
             //are they being regularly selected?
-            int weight_minuteConfidence = 4;
+            int weight_minuteConfidence = 3;
             double minuteConfidence = (double)lastTenGames.Select(x => x?.minutes).Where(x => x.HasValue).Sum().Value/lastTenGames.Count();
-            //have they been returning recently?
-            int weight_pointsPerGame = 5;
+            //have they been returning points recently?
+            int weight_pointsPerGame = 6;
             double pointsPerGame = (double)lastTenGames.Select(x => x.total_points).Where(x => x.HasValue).Sum()/lastTenGames.Count();
+            //what is their value in their position?
+            int weight_contributionFactor = 5;
+            double contributionFactor = 0;
+            switch (DataService.Enumerators.PlayerTypes.Where(x => x.id == player.element_type).FirstOrDefault().singular_name.ToLower())
+            {
+                case "goalkeeper":
+                    contributionFactor = (double)lastTenGames.Select(x => x.clean_sheets).Sum()/lastTenGames.Count();
+                    break;
+                case "defender":
+                    contributionFactor = (double)lastTenGames.Select(x => x.clean_sheets + x.assists + x.goals_scored).Sum()/lastTenGames.Count();
+                    break;
+                case "midfielder":
+                    contributionFactor = (double)lastTenGames.Select(x => x.assists + x.goals_scored).Sum()/lastTenGames.Count();
+                    break;
+                case "forward":
+                    contributionFactor = (double)lastTenGames.Select(x => x.assists + x.goals_scored).Sum()/lastTenGames.Count();
+                    break;
+            }
             //how much will it cost. Are they worth the expense?
-            int weight_costFactor = 5;
+            int weight_costFactor = 3;
             double costFactor = Math.Pow(player.now_cost, -1);
-
+            if (contributionFactor > 0.5) Console.WriteLine(player.web_name);
             return weight_teamPosition * teamPosition + 
                    weight_minuteConfidence * minuteConfidence +
                    weight_pointsPerGame * pointsPerGame +
-                   weight_costFactor * costFactor;
+                   weight_costFactor * costFactor +
+                   weight_contributionFactor * contributionFactor;
         }
     }
 }

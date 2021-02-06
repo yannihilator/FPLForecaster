@@ -23,20 +23,25 @@ namespace FPLForecaster.Clients
             return players;
         }
 
-        public async Task<PlayerDetails> GetPlayerDetails(int player_id)
+        public async Task<PlayerDetails> GetPlayerDetails(int player_id, bool getHistoricData = false)
         {
             var jsonPlayerDetails = await FPLClient.HttpClient.GetStringAsync($"element-summary/{player_id}/");
 
             string jsonFuture = JObject.Parse(jsonPlayerDetails)["fixtures"].ToString();
             string jsonPast = JObject.Parse(jsonPlayerDetails)["history"].ToString();
-            string jsonHistorical = JObject.Parse(jsonPlayerDetails)["history_past"].ToString();
-
+            
             PlayerDetails playerDetails = new PlayerDetails()
             {
                 futureFixtures = JsonConvert.DeserializeObject<ICollection<PlayerFutureFixture>>(jsonFuture),
-                pastFixtures = JsonConvert.DeserializeObject<ICollection<PlayerPastFixture>>(jsonPast),
-                historicalFixtures = JsonConvert.DeserializeObject<ICollection<PlayerHistoricalFixture>>(jsonHistorical)
+                pastFixtures = JsonConvert.DeserializeObject<ICollection<PlayerPastFixture>>(jsonPast)           
             };
+
+            //populates historic data if bool is set to true. It is set to false by default because this is not ideal, as it decreases performance
+            if (getHistoricData)
+            {
+                string jsonHistorical = JObject.Parse(jsonPlayerDetails)["history_past"].ToString();
+                playerDetails.historicalFixtures = JsonConvert.DeserializeObject<ICollection<PlayerHistoricalFixture>>(jsonHistorical);
+            }
             return playerDetails;
         }
 
