@@ -7,8 +7,12 @@ namespace FPLForecaster.Clients
     {
         internal static readonly HttpClient HttpClient = new HttpClient()
         {
-            BaseAddress = new Uri("https://fantasy.premierleague.com/api/"),
-            Timeout = TimeSpan.FromMinutes(1)
+            BaseAddress = new Uri("https://fantasy.premierleague.com/api/")
         };
+
+        internal static bool ConnectionSuccessful(string endpoint)
+        {
+            return HttpClient.GetAsync(HttpClient.BaseAddress + endpoint).Result.IsSuccessStatusCode;
+        }
     }  
 }
