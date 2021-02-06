@@ -74,6 +74,11 @@ namespace FPLForecaster.Models
         public string penalties_text { get; set; } 
         public PlayerDetails playerDetails {get;set;}
         public PlayerType playerType {get;set;}
+        public double? predictivePlayerRating {get;set;}
+        public override string ToString()
+        {
+            return web_name;
+        }
     }
 
 }

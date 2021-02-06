@@ -21,8 +21,12 @@ namespace FPLForecaster.Clients
             return JsonConvert.DeserializeObject<ICollection<Team>>(jsonTeams);
         }
 
-        public void UpdateTeamMatchData()
+        /// <summary>
+        /// Updates team data, as some parameters are left unfilled by the API.
+        /// </summary>
+        public void UpdateTeamData()
         {
+            //updates team records and points if fixtures have been populated
             if (DataService.Data.Fixtures != null && DataService.Data.Fixtures.Count > 0)
             {
                 foreach (Team team in DataService.Data.Teams)
@@ -64,7 +68,18 @@ namespace FPLForecaster.Clients
                             team.goals_against += fix?.team_h_score.Value ?? 0; 
                         }
                         team.played += 1;
-                    }
+                    }                   
+                }
+
+                //rearranges team list by teams' table position
+                DataService.Data.Teams = DataService.Data.Teams.OrderByDescending(x => x?.points)
+                    .ThenByDescending(x => x.goal_differential).ThenByDescending(x => x.goals_for).ToList();
+                
+                //updates table position
+                for (int i = 0; i < DataService.Data.Teams.Count; i++)
+                {
+                    Team team = DataService.Data.Teams.ElementAt(i);
+                    team.position = i + 1;
                 }
             }
         }
