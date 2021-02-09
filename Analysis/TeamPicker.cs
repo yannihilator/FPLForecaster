@@ -2,23 +2,29 @@ using System;
 using System.Collections.Generic;
 using FPLForecaster.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FPLForecaster.Analysis
 {
-    public static class TeamPicker
+    public class TeamPicker
     {
-        public static List<Player> AITeam()
+        public async Task<List<Player>> AITeam(IProgress<string> progress)
         {
             List<Player> chosenTeam = new List<Player>();
 
             //rearranges available players by their ROI and by total points for easy access
-            List<Player> playersByRoi = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ? 
+/*             List<Player> playersByRoi = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ? 
                 DataService.Data.Players.OrderByDescending(x => Convert.ToDouble(x.total_points/x.now_cost))
                 .ToList() : null;
             List<Player> playersByPoints = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ?
-                DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null;
-            List<Player> playersByModel = DataService.Data.Players.Where(x => x.minutes > 0)
-                .Select(x => {x.predictivePlayerRating = PredictivePlayerRating(x); return x;}).OrderByDescending(x => x.predictivePlayerRating).ToList();
+                DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null; */
+            List<Player> playersByModel = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
+            playersByModel = playersByModel.Select(x => 
+                {
+                    progress.Report($"Analyzing player {playersByModel.IndexOf(x)} of {playersByModel.Count}");
+                    x.predictivePlayerRating = PredictivePlayerRating(x); 
+                    return x;
+                }).OrderByDescending(x => x.predictivePlayerRating).ToList();
             
             //counters for how many players each position should choose
             int goalkeeperCount = 2;
@@ -28,7 +34,7 @@ namespace FPLForecaster.Analysis
             int counter = 0;
 
             //checks to see if player lists are populated
-            if (playersByRoi != null && playersByPoints != null && playersByRoi.Count > 0)
+            if (playersByModel != null && playersByModel.Count > 0)
             {
                 while (chosenTeam.Count < 15)
                 {
@@ -75,7 +81,7 @@ namespace FPLForecaster.Analysis
             return chosenTeam;
         }
 
-        public static Player GetPlayerAlgorithm(List<Player> playerList, List<Player> chosenTeam, string position)
+        public Player GetPlayerAlgorithm(List<Player> playerList, List<Player> chosenTeam, string position)
         {
             var minCost = DataService.Data.Players.Where(x => DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position)
                 .Select(x => x.now_cost).Min();
@@ -92,7 +98,7 @@ namespace FPLForecaster.Analysis
         /// </summary>
         /// <param name="player"></param>
         /// <returns>double</returns>
-        public static double PredictivePlayerRating(Player player)
+        public double PredictivePlayerRating(Player player)
         {
             //additional data about player. Will not be disposed at the end of algorithm, as there is no need to keep it
             //and consume memory if the player will not be selected
@@ -131,7 +137,7 @@ namespace FPLForecaster.Analysis
             //how much will it cost. Are they worth the expense?
             int weight_costFactor = 3;
             double costFactor = Math.Pow(player.now_cost, -1);
-            if (contributionFactor > 0.5) Console.WriteLine(player.web_name);
+
             return weight_teamPosition * teamPosition + 
                    weight_minuteConfidence * minuteConfidence +
                    weight_pointsPerGame * pointsPerGame +

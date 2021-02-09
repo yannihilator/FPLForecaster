@@ -1,7 +1,22 @@
 @{
     ViewData["Title"] = "Team Picks";
+    
 
-    var chosenTeam = FPLForecaster.Analysis.TeamPicker.AITeam();
+
+    var progress = new Progress<string>();
+    progress.ProgressChanged += (s, e) =>
+    {
+        <script>
+            function updateProgress(count, max, html) {  
+                $("#h3").text('@e');  
+                var lblStatus = document.getElementById("lblStatus");  
+                lblStatus.style.width = count1 + "%";  
+                $("#lblStatus").text(count1 + '% Complete');  
+                $(".tbody").append(html);  
+            }
+        </script>
+    };
+    var chosenTeam = await new FPLForecaster.Analysis.TeamPicker().AITeam(progress);
 
     var gameweekValues = DataService.Data.Fixtures.Where(x => x.finished == true).Select(x => x.number).Distinct().OrderBy(x => x).ToList();
     var gameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekValues);
@@ -27,6 +42,9 @@
     var totalSquadCost = (double)chosenTeam.Sum(x=>x.now_cost)/10;
 }
 
+<div class="progress">  
+    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" id="lblStatus"></div>  
+</div> 
 
 <h4 class="text-center">Total Squad Cost: £@totalSquadCost M</h4>
 <hr/>
