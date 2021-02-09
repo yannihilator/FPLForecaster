@@ -1,22 +1,8 @@
+@model List<Player>;
 @{
     ViewData["Title"] = "Team Picks";
-    
 
-
-    var progress = new Progress<string>();
-    progress.ProgressChanged += (s, e) =>
-    {
-        <script>
-            function updateProgress(count, max, html) {  
-                $("#h3").text('@e');  
-                var lblStatus = document.getElementById("lblStatus");  
-                lblStatus.style.width = count1 + "%";  
-                $("#lblStatus").text(count1 + '% Complete');  
-                $(".tbody").append(html);  
-            }
-        </script>
-    };
-    var chosenTeam = await new FPLForecaster.Analysis.TeamPicker().AITeam(progress);
+    var chosenTeam = Model;
 
     var gameweekValues = DataService.Data.Fixtures.Where(x => x.finished == true).Select(x => x.number).Distinct().OrderBy(x => x).ToList();
     var gameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekValues);
@@ -42,71 +28,68 @@
     var totalSquadCost = (double)chosenTeam.Sum(x=>x.now_cost)/10;
 }
 
-<div class="progress">  
-    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" id="lblStatus"></div>  
-</div> 
-
-<h4 class="text-center">Total Squad Cost: £@totalSquadCost M</h4>
-<hr/>
-@foreach(var positions in chosenTeam.GroupBy(x => x.element_type).Reverse().ToList())
-{
-    <h5 class="text-center">@DataService.Enumerators.PlayerTypes.Where(x => x.id == positions.FirstOrDefault()?.element_type)?.FirstOrDefault()?.plural_name</h5>
-    <div class="row justify-content-md-center">
-        @foreach(Player player in positions)
-        {
-            var playerPhotoUrl = $"https://resources.premierleague.com/premierleague/photos/players/110x140/p{player.code}.png";
-            <div class="card text-center border-dark" style="width: 10rem;margin:10px">
-                <div class="card-header" style="background-color: #05386B;">
-                    <p class="card-text" ><small class="text-white">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+<body>
+    <h4 class="text-center">Total Squad Cost: £@totalSquadCost M</h4>
+    <hr/>
+    @foreach(var positions in chosenTeam.GroupBy(x => x.element_type).Reverse().ToList())
+    {
+        <h5 class="text-center">@DataService.Enumerators.PlayerTypes.Where(x => x.id == positions.FirstOrDefault()?.element_type)?.FirstOrDefault()?.plural_name</h5>
+        <div class="row justify-content-md-center">
+            @foreach(Player player in positions)
+            {
+                var playerPhotoUrl = $"https://resources.premierleague.com/premierleague/photos/players/110x140/p{player.code}.png";
+                <div class="card text-center border-dark" style="width: 10rem;margin:10px">
+                    <div class="card-header" style="background-color: #05386B;">
+                        <p class="card-text" ><small class="text-white">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+                    </div>
+                    <img class="card-img-top" src="@playerPhotoUrl" alt="" style="background-color: #EDF5E1;">
+                    <div class="card-body text-white" style="background-color: rgba(5, 56, 107, 0.4);">
+                        <h6 class="card-title" style="margin-bottom: 0;">@player.web_name</h6>       
+                        @*<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>*@     
+                    </div>
                 </div>
-                <img class="card-img-top" src="@playerPhotoUrl" alt="" style="background-color: #EDF5E1;">
-                <div class="card-body text-white" style="background-color: rgba(5, 56, 107, 0.4);">
-                    <h6 class="card-title" style="margin-bottom: 0;">@player.web_name</h6>       
-                    @*<a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="IdentificationDetails" asp-route-id="identification.Id" style="margin-bottom:20px">Details</a>*@     
-                </div>
-            </div>
-            <p></p>
-        }
-    </div>
-}
-<hr/>
-@await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
-    chartId = "aiTotalPointsChart",
-    chartTitle = "Gameweek Total Points for AI Team Picks",
-    xValuesJson = gameweekValuesJson,
-    yValuesJson = gameweekPointsTotalValuesJson,
-    yValuesJson2 = managerGameweekTotalValuesJson,
-    xLabel = "Gameweek",
-    yLabel = "Points",
-    hoverLabel = "Points: ",
-    hoverLabelBefore = false,
-    hoverTitle = "Gameweek ",
-    hoverTitleBefore = true,
-    height_pixels = "500"
-})
-&nbsp;
-<p class="text-center">AI Team Total Points: @gameweekPointsTotalValues.Sum()</p>
-<p class="text-center">Manager Team Total Points: @managerGameweekTotalValues.Sum()</p>
-@{var percentageImprovementTotal = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekTotalValues.Sum().Value, gameweekPointsTotalValues.Sum());}
-<p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovementTotal %</p>   
-<hr/>
-@await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
-    chartId = "aiPointsChart",
-    chartTitle = "Gameweek Points (Non-Bench Points) for AI Team Picks",
-    xValuesJson = gameweekValuesJson,
-    yValuesJson = gameweekPointsValuesJson,
-    yValuesJson2 = managerGameweekValuesJson,
-    xLabel = "Gameweek",
-    yLabel = "Points",
-    hoverLabel = "Points: ",
-    hoverLabelBefore = false,
-    hoverTitle = "Gameweek ",
-    hoverTitleBefore = true,
-    height_pixels = "500"
-})
-&nbsp;
-<p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
-<p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
-@{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
-<p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
-
+                <p></p>
+            }
+        </div>
+    }
+    <hr/>
+    @await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
+        chartId = "aiTotalPointsChart",
+        chartTitle = "Gameweek Total Points for AI Team Picks",
+        xValuesJson = gameweekValuesJson,
+        yValuesJson = gameweekPointsTotalValuesJson,
+        yValuesJson2 = managerGameweekTotalValuesJson,
+        xLabel = "Gameweek",
+        yLabel = "Points",
+        hoverLabel = "Points: ",
+        hoverLabelBefore = false,
+        hoverTitle = "Gameweek ",
+        hoverTitleBefore = true,
+        height_pixels = "500"
+    })
+    &nbsp;
+    <p class="text-center">AI Team Total Points: @gameweekPointsTotalValues.Sum()</p>
+    <p class="text-center">Manager Team Total Points: @managerGameweekTotalValues.Sum()</p>
+    @{var percentageImprovementTotal = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekTotalValues.Sum().Value, gameweekPointsTotalValues.Sum());}
+    <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovementTotal %</p>   
+    <hr/>
+    @await Html.PartialAsync("/Views/Charts/_LineChart2.cshtml", new FPLForecaster.Models.LineChartData(){
+        chartId = "aiPointsChart",
+        chartTitle = "Gameweek Points (Non-Bench Points) for AI Team Picks",
+        xValuesJson = gameweekValuesJson,
+        yValuesJson = gameweekPointsValuesJson,
+        yValuesJson2 = managerGameweekValuesJson,
+        xLabel = "Gameweek",
+        yLabel = "Points",
+        hoverLabel = "Points: ",
+        hoverLabelBefore = false,
+        hoverTitle = "Gameweek ",
+        hoverTitleBefore = true,
+        height_pixels = "500"
+    })
+    &nbsp;
+    <p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
+    <p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
+    @{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
+    <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
+</body>
