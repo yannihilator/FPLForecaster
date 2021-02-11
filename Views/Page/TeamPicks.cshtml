@@ -28,6 +28,18 @@
     var totalSquadCost = (double)chosenTeam.Sum(x=>x.now_cost)/10;
 }
 
+<head>  
+    <meta name="viewport" content="width=device-width" />  
+    <title></title>  
+</head> 
+<form method="post">
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link" data-toggle="tab" href="#all" onclick="GetAITeam()">All Gameweeks</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#last15" onclick="GetAITeam()">Last 15 Gameweeks</a>
+        <a class="nav-item nav-link" data-toggle="tab" href="#last10" onclick="GetAITeam()">Last 10 Gameweeks</a>
+    </nav>
+</form>
+&nbsp;&nbsp;&nbsp;
 <body>
     <h4 class="text-center">Total Squad Cost: £@totalSquadCost M</h4>
     <hr/>
@@ -93,3 +105,8 @@
     @{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
     <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
 </body>
+<script>
+    function GetAITeam(){
+
+    }
+</script>
