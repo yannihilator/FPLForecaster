@@ -49,8 +49,7 @@ namespace FPLForecaster.Controllers
 
         public IActionResult TeamPicks()
         {
-            var chosenTeam = new FPLForecaster.Analysis.TeamPicker().AITeam(new Progress<string>()).Result;
-            return View(chosenTeam);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

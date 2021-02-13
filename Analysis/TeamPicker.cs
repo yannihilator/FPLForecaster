@@ -8,7 +8,15 @@ namespace FPLForecaster.Analysis
 {
     public class TeamPicker
     {
-        public async Task<List<Player>> AITeam(IProgress<string> progress)
+        private List<Player> playerList = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
+        public int playerListCount {get => playerList.Count();}
+        
+        /// <summary>
+        /// Main method for choosing an FPL team of 15 players.
+        /// </summary>
+        /// <param name="progress"></param>
+        /// <returns></returns>
+        public async Task<List<Player>> AITeam(IProgress<ProgressData> progress)
         {
             List<Player> chosenTeam = new List<Player>();
 
@@ -18,10 +26,13 @@ namespace FPLForecaster.Analysis
                 .ToList() : null;
             List<Player> playersByPoints = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ?
                 DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null; */
-            List<Player> playersByModel = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
-            playersByModel = playersByModel.Select(x => 
+            //List<Player> playersByModel = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
+            playerList = playerList.Select(x => 
                 {
-                    progress.Report($"Analyzing player {playersByModel.IndexOf(x)} of {playersByModel.Count}");
+                    progress.Report(new ProgressData() {
+                        message = $"Analyzing player {playerList.IndexOf(x) + 1} of {playerList.Count + 1}",
+                        currentValue = playerList.IndexOf(x) + 1
+                    });
                     x.predictivePlayerRating = PredictivePlayerRating(x); 
                     return x;
                 }).OrderByDescending(x => x.predictivePlayerRating).ToList();
@@ -34,12 +45,12 @@ namespace FPLForecaster.Analysis
             int counter = 0;
 
             //checks to see if player lists are populated
-            if (playersByModel != null && playersByModel.Count > 0)
+            if (playerList != null && playerList.Count > 0)
             {
                 while (chosenTeam.Count < 15)
                 {
                     //alternates between choosing players by total points (more expensive) and players by ROI
-                    var playerList = playersByModel;//counter % 2 == 0 ? playersByPoints : playersByRoi;
+                    //var playerList = playersByModel;//counter % 2 == 0 ? playersByPoints : playersByRoi;
                     var playerTypes = DataService.Enumerators.PlayerTypes;
                     if (forwardCount > 0)
                     {      
@@ -81,7 +92,14 @@ namespace FPLForecaster.Analysis
             return chosenTeam;
         }
 
-        public Player GetPlayerAlgorithm(List<Player> playerList, List<Player> chosenTeam, string position)
+        /// <summary>
+        /// Picks the next player for the FPL team given the master list of players, the players chosen so far, and a position
+        /// </summary>
+        /// <param name="playerList"></param>
+        /// <param name="chosenTeam"></param>
+        /// <param name="position"></param>
+        /// <returns></returns>
+        private Player GetPlayerAlgorithm(List<Player> playerList, List<Player> chosenTeam, string position)
         {
             var minCost = DataService.Data.Players.Where(x => DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position)
                 .Select(x => x.now_cost).Min();
@@ -98,7 +116,7 @@ namespace FPLForecaster.Analysis
         /// </summary>
         /// <param name="player"></param>
         /// <returns>double</returns>
-        public double PredictivePlayerRating(Player player)
+        private double PredictivePlayerRating(Player player)
         {
             //additional data about player. Will not be disposed at the end of algorithm, as there is no need to keep it
             //and consume memory if the player will not be selected

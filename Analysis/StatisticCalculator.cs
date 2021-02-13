@@ -9,5 +9,10 @@ namespace FPLForecaster.Analysis
         {
             return Math.Round((double)(_new-original)*100/original, 2, MidpointRounding.AwayFromZero);
         }
+
+        public static int Percentage(double numerator, double denominator)
+        {
+            return Convert.ToInt32(numerator/denominator*100);
+        }
     }
 }

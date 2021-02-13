@@ -4,7 +4,9 @@ namespace FPLForecaster.Models
 {
     public class ProgressData
     {
-        public Progress<string> progress {get;set;}
-        public int max {get;set;}
+        public string message {get;set;}
+        public int maxValue {get;set;}
+        public int minValue {get;set;}
+        public int currentValue {get;set;}
     }
 }
