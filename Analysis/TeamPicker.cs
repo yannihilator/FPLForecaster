@@ -9,6 +9,7 @@ namespace FPLForecaster.Analysis
     public class TeamPicker
     {
         private List<Player> playerList = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
+        private int gameweekCount;
         public int playerListCount {get => playerList.Count();}
         
         /// <summary>
@@ -16,9 +17,10 @@ namespace FPLForecaster.Analysis
         /// </summary>
         /// <param name="progress"></param>
         /// <returns></returns>
-        public async Task<List<Player>> AITeam(IProgress<ProgressData> progress)
+        public async Task<ICollection<Player>> AITeam(IProgress<ProgressData> progress, int _gameweekCount)
         {
             List<Player> chosenTeam = new List<Player>();
+            gameweekCount = _gameweekCount;
 
             //rearranges available players by their ROI and by total points for easy access
 /*             List<Player> playersByRoi = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ? 
@@ -121,7 +123,7 @@ namespace FPLForecaster.Analysis
             //additional data about player. Will not be disposed at the end of algorithm, as there is no need to keep it
             //and consume memory if the player will not be selected
             var playerDetails = DataService.Controller.playerClient.GetPlayerDetails(player.id).Result;
-            var lastTenGames = playerDetails.pastFixtures.TakeLast(10);
+            var lastTenGames = playerDetails.pastFixtures.TakeLast(gameweekCount);
 
             //initializing metrics to take into consideration about each player. Takes into consideration their last 10 games
             //*************************************************************************************************

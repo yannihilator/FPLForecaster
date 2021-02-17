@@ -47,8 +47,9 @@ namespace FPLForecaster.Controllers
             return View();
         }
 
-        public IActionResult TeamPicks()
+        public IActionResult TeamPicks(int? weeks)
         {
+            if (weeks != null) DataService.Data.AITeam = new Analysis.TeamPicker().AITeam(new Progress<ProgressData>(), weeks.Value).Result;
             return View();
         }
 
@@ -57,7 +58,5 @@ namespace FPLForecaster.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
     }
 }
