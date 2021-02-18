@@ -31,8 +31,8 @@ namespace FPLForecaster.Controllers
             if (manager_id != null && manager_id.ToString().All(x => char.IsNumber(x)))
             {
                 if (DataService.Data.ManagerData == null) DataService.Data.ManagerData = new ManagerData();
-                DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.managerClient.GetManagerGameweeksData(manager_id.Value).Result;
-                DataService.Data.ManagerData.ManagerInformation = DataService.Controller.managerClient.GetManagerGeneralInfo(manager_id.Value).Result;
+                DataService.Data.ManagerData.ManagerGameweeks = DataService.Controller.ManagerClient.GetManagerGameweeksData(manager_id.Value).Result;
+                DataService.Data.ManagerData.ManagerInformation = DataService.Controller.ManagerClient.GetManagerGeneralInfo(manager_id.Value).Result;
             }
             return View();
         }

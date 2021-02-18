@@ -12,26 +12,26 @@ namespace FPLForecaster.Controllers
 {
     public class DataController
     {
-        public FixtureClient fixtureClient {get; private set;}
-        public PlayerClient playerClient {get; private set;}
-        public ManagerClient managerClient {get; private set;}
-        public TeamClient teamClient {get; private set;}
+        public FixtureClient FixtureClient {get; private set;}
+        public PlayerClient PlayerClient {get; private set;}
+        public ManagerClient ManagerClient {get; private set;}
+        public TeamClient TeamClient {get; private set;}
 
         public DataController()
         {
-            fixtureClient = new FixtureClient();
-            playerClient = new PlayerClient();
-            managerClient = new ManagerClient();
-            teamClient = new TeamClient();
+            FixtureClient = new FixtureClient();
+            PlayerClient = new PlayerClient();
+            ManagerClient = new ManagerClient();
+            TeamClient = new TeamClient();
         }
                
         public void GetGeneralData()
         {
-            DataService.Data.Fixtures = fixtureClient.GetAllFixtures().Result;
-            DataService.Data.Players = playerClient.GetAllPlayers().Result;
-            DataService.Enumerators.PlayerTypes = playerClient.GetPlayerTypes().Result;
-            DataService.Data.Teams = teamClient.GetTeamsGeneralData().Result;
-            teamClient.UpdateTeamData();
+            DataService.Data.Fixtures = FixtureClient.GetAllFixtures().Result;
+            DataService.Data.Players = PlayerClient.GetAllPlayers().Result;
+            DataService.Enumerators.PlayerTypes = PlayerClient.GetPlayerTypes().Result;
+            DataService.Data.Teams = TeamClient.GetTeamsGeneralData().Result;
+            TeamClient.UpdateTeamData();
         }
     }
 }

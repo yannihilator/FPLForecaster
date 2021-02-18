@@ -12,13 +12,13 @@ namespace FPLForecaster.Clients
 {
     public class TeamClient
     {
-        public async Task<ICollection<Team>> GetTeamsGeneralData()
+        public async Task<List<Team>> GetTeamsGeneralData()
         {
             //gets general data for teams from current season 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var json = await FPLClient.HttpClient.GetStringAsync("bootstrap-static/");
             var jsonTeams = JObject.Parse(json)["teams"].ToString();
-            return JsonConvert.DeserializeObject<ICollection<Team>>(jsonTeams);
+            return JsonConvert.DeserializeObject<List<Team>>(jsonTeams);
         }
 
         /// <summary>

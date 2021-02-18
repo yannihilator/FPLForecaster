@@ -8,5 +8,6 @@ namespace FPLForecaster.Models
         public ICollection<PlayerFutureFixture> futureFixtures {get;set;}
         public ICollection<PlayerPastFixture> pastFixtures {get;set;}
         public ICollection<PlayerHistoricalFixture> historicalFixtures {get;set;}
+        public ICollection<PlayerFixture> fixtures {get;set;}
     }
 }

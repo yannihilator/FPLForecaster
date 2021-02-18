@@ -31,12 +31,12 @@
     var gameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(gameweekValues);
     
     //non-bench points values
-    var managerGameweekValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points).ToList();
+    var managerGameweekValues = DataService.Controller.ManagerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points).ToList();
     while (managerGameweekValues.Count != gameweekValues.Count) managerGameweekValues.Insert(0,0);
     var managerGameweekValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(managerGameweekValues);
 
     //total values
-    var managerGameweekTotalValues = DataService.Controller.managerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points + x.points_on_bench).ToList();
+    var managerGameweekTotalValues = DataService.Controller.ManagerClient.GetManagerGameweeksData(5884469).Result.OrderBy(x => x.number).Select(x => x.points + x.points_on_bench).ToList();
     while (managerGameweekTotalValues.Count != gameweekValues.Count) managerGameweekTotalValues.Insert(0,0);
     var managerGameweekTotalValuesJson = Newtonsoft.Json.JsonConvert.SerializeObject(managerGameweekTotalValues);
     

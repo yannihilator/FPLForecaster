@@ -12,11 +12,11 @@ namespace FPLForecaster.Clients
 {
     public class FixtureClient
     {
-        public async Task<ICollection<Fixture>> GetAllFixtures()
+        public async Task<List<Fixture>> GetAllFixtures()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var json = await FPLClient.HttpClient.GetStringAsync("fixtures/");
-            return JsonConvert.DeserializeObject<ICollection<Fixture>>(json);
+            return JsonConvert.DeserializeObject<List<Fixture>>(json);
         }
     }
 }

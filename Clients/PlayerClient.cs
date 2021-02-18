@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Linq;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -13,13 +14,35 @@ namespace FPLForecaster.Clients
 {
     public class PlayerClient
     {
-        public async Task<ICollection<Player>> GetAllPlayers()
+        public async Task<List<Player>> GetAllPlayers()
         {
             //gets general data for players from general information endpoint
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var json = await FPLClient.HttpClient.GetStringAsync("bootstrap-static/");
             var jsonPlayer = JObject.Parse(json)["elements"].ToString();
-            ICollection<Player> players = JsonConvert.DeserializeObject<ICollection<Player>>(jsonPlayer);
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(jsonPlayer);
+            
+            //gets player fixture stats
+            for (int i = 1; i <= DataService.Data.CurrentGameweek; i++)
+            {
+                var fixtureObjects = JObject.Parse(await FPLClient.HttpClient.GetStringAsync($"event/{i}/live/"))["elements"];
+                foreach (Player player in players)
+                {
+                    if (player.playerDetails == null) player.playerDetails = new PlayerDetails();
+                    if (player.playerDetails.fixtures == null) player.playerDetails.fixtures = new List<PlayerFixture>();
+
+                    var playerFixture = fixtureObjects.Where(x => (int)x["id"] == player.id).FirstOrDefault();
+                    if (playerFixture != null)
+                    {
+                        var playerStats = JsonConvert.DeserializeObject<PlayerFixture>(playerFixture["stats"].ToString());
+                        var explain = playerFixture["explain"].FirstOrDefault();         
+                        if (explain != null) playerStats.fixtureId = (int)explain["fixture"];
+                        player.playerDetails.fixtures.Add(playerStats);
+                    }
+
+                }
+            }
+
             return players;
         }
 
