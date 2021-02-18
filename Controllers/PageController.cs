@@ -52,7 +52,7 @@ namespace FPLForecaster.Controllers
             if (weeks != null)
             {
                 DataService.Data.AITeam = null;
-                DataService.Data.AITeam = new Analysis.TeamPicker().AITeam(new Progress<ProgressData>(), weeks.Value).Result;
+                DataService.Data.AITeam = DataService.TeamPicker.AITeam(weeks.Value).Result;
             }
             return View();
         }

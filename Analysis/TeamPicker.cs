@@ -8,33 +8,22 @@ namespace FPLForecaster.Analysis
 {
     public class TeamPicker
     {
-        private List<Player> playerList = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
         private int gameweekCount;
-        public int playerListCount {get => playerList.Count();}
         
         /// <summary>
         /// Main method for choosing an FPL team of 15 players.
         /// </summary>
         /// <param name="progress"></param>
         /// <returns></returns>
-        public async Task<List<Player>> AITeam(IProgress<ProgressData> progress, int _gameweekCount)
+        public async Task<List<Player>> AITeam(int _gameweekCount)
         {
             List<Player> chosenTeam = new List<Player>();
             gameweekCount = _gameweekCount;
 
-            //rearranges available players by their ROI and by total points for easy access
-/*             List<Player> playersByRoi = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ? 
-                DataService.Data.Players.OrderByDescending(x => Convert.ToDouble(x.total_points/x.now_cost))
-                .ToList() : null;
-            List<Player> playersByPoints = DataService.Data.Players != null && DataService.Data.Players.Count > 0 ?
-                DataService.Data.Players.OrderByDescending(x => x.total_points).ToList() : null; */
-            //List<Player> playersByModel = DataService.Data.Players.Where(x => x.minutes > 0).ToList();
+            //rearranges available players by their predictive player rating for easy access
+            List<Player> playerList = DataService.Data.Players.Where(x => x?.minutes > 0 && x?.playerDetails?.fixtures?.Count > 0).ToList();
             playerList = playerList.Select(x => 
                 {
-                    progress.Report(new ProgressData() {
-                        message = $"Analyzing player {playerList.IndexOf(x) + 1} of {playerList.Count + 1}",
-                        currentValue = playerList.IndexOf(x) + 1
-                    });
                     x.predictivePlayerRating = PredictivePlayerRating(x); 
                     return x;
                 }).OrderByDescending(x => x.predictivePlayerRating).ToList();
@@ -105,16 +94,17 @@ namespace FPLForecaster.Analysis
         {
             var minCost = DataService.Data.Players.Where(x => DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position)
                 .Select(x => x.now_cost).Min();
-            return playerList.Where(x => 
+            var player = playerList.Where(x => 
                             DataService.Enumerators.PlayerTypes.Where(y => y.id == x.element_type).FirstOrDefault()?.singular_name?.ToLower() == position
                             //&& chosenTeam.Sum(y => y.now_cost) + x.now_cost <= 1000 - minCost
-                            && x.status == "a"
-                            && chosenTeam.Contains(x) == false
+                            && (x.status == "a" || x.status == "d")
+                            && chosenTeam.Select(x => x.id).ToList().Contains(x.id) == false
                             && chosenTeam.Count(z => z.team == x?.team) < 3).FirstOrDefault();
+            return player.Clone();
         }
 
         /// <summary>
-        /// Algorithm that returns a player's value based on their last 10 games.
+        /// Algorithm that returns a player's value based on their last number of games specified.
         /// </summary>
         /// <param name="player"></param>
         /// <returns>double</returns>
@@ -142,7 +132,7 @@ namespace FPLForecaster.Analysis
             switch (DataService.Enumerators.PlayerTypes.Where(x => x.id == player.element_type).FirstOrDefault().singular_name.ToLower())
             {
                 case "goalkeeper":
-                    contributionFactor = (double)lastTenGames.Select(x => x.clean_sheets).Sum()/lastTenGames.Count();
+                    contributionFactor = (double)lastTenGames.Select(x => x.saves).Sum()/lastTenGames.Count();
                     break;
                 case "defender":
                     contributionFactor = (double)lastTenGames.Select(x => x.clean_sheets + x.assists + x.goals_scored).Sum()/lastTenGames.Count();
