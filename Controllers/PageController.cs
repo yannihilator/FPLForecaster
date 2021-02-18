@@ -49,7 +49,11 @@ namespace FPLForecaster.Controllers
 
         public IActionResult TeamPicks(int? weeks)
         {
-            if (weeks != null) DataService.Data.AITeam = new Analysis.TeamPicker().AITeam(new Progress<ProgressData>(), weeks.Value).Result;
+            if (weeks != null)
+            {
+                DataService.Data.AITeam = null;
+                DataService.Data.AITeam = new Analysis.TeamPicker().AITeam(new Progress<ProgressData>(), weeks.Value).Result;
+            }
             return View();
         }
 
