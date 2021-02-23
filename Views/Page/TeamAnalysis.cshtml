@@ -15,6 +15,7 @@
     string teamRoiJson = null;
     string teamPlayersJson = null;
     string playerAveragePointsJson = null;
+    double minutePercentage = 0.5;
 
     if(DataService.Data.Players != null && DataService.Data.Players.Count > 0) 
     {
@@ -32,7 +33,7 @@
             var totalCost = playerData.Select(x => x.now_cost).Sum()/10;
             var playerCount = DataService.Data.Players.Where(x => x.team == team.id 
                 && (double)x.minutes/(DataService.Data.Fixtures.Where(y => y.finished == true && (y.team_a == team.id ||
-                y.team_h == team.id)).Count() * 90) > 0.5).Count();
+                y.team_h == team.id)).Count() * 90) > minutePercentage).Count();
 
             teamPoints.Add(totalPoints);
             squadCost.Add(totalCost);
@@ -53,11 +54,6 @@
     <title></title>  
 </head>  
 <body>  
-    <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link active" data-toggle="tab" href="#">All Gameweeks</a>
-        <a class="nav-item nav-link" data-toggle="tab" href="#">Last 5 Gameweeks</a>
-        <a class="nav-item nav-link" data-toggle="tab" href="#">Last 10 Gameweeks</a>
-    </nav>
     @if (teamNamesJson != null)
     {
         @await Html.PartialAsync("/Views/Charts/_BarChart.cshtml", new FPLForecaster.Models.BarChartData(){
@@ -87,7 +83,7 @@
             yValuesJson_1 = playerAveragePointsJson,
             yValuesJson_2 = teamPlayersJson,
             yLabel_1 = "Average Points per Player",
-            yLabel_2 = "Number of Players with Minutes",
+            yLabel_2 = $"Number of Players with {minutePercentage * 100}% Minutes",
             height_pixels = "500"
         }); 
     }

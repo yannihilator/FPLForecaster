@@ -54,7 +54,7 @@ namespace FPLForecaster.Controllers
                 DataService.Data.AITeam = null;
                 DataService.Data.AITeam = DataService.TeamPicker.AITeam(weeks.Value).Result;
             }
-            return View();
+            return View(weeks);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

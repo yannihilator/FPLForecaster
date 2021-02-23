@@ -1,6 +1,9 @@
-@model ProgressData
+@model int?
 @{
     ViewData["Title"] = "Team Picks";
+    string allClass = Model != null && Model.Value != 10 && Model.Value != 15 ? "nav-link active" : "nav-link";
+    string fifteenClass = Model != null && Model.Value == 15 ? "nav-link active" : "nav-link";
+    string tenClass = Model != null && Model.Value == 10 ? "nav-link active" : "nav-link";
 }
 
 <head>  
@@ -10,20 +13,17 @@
 <form method="post" asp-controller="Page" asp-action="TeamPicks">
     <nav class="nav nav-pills nav-fill">
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Page" asp-action="TeamPicks">All Gameweeks</a>
+            <a class=@allClass asp-controller="Page" asp-action="TeamPicks">All Gameweeks</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="15">Last 15 Gameweeks</a>
+            <a class=@fifteenClass asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="15">Last 15 Gameweeks</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="10">Last 10 Gameweeks</a>
+            <a class=@tenClass asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="10">Last 10 Gameweeks</a>
         </li>
     </nav>
 </form>
 &nbsp;&nbsp;&nbsp;
-@* <div class="progress">  
-    <div class="progress-bar" role="progressbar" style="width: @Model.currentValue%" aria-valuenow="50" aria-valuemin="1" aria-valuemax="@Model.maxValue" id="prgStatus"></div>  
-</div>  *@
 
 @if (DataService.AITeamChosen)
 {
@@ -117,26 +117,6 @@
         <p class="text-center">AI Team Total Points: @gameweekPointsValues.Sum()</p>
         <p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
         @{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
-        <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
+        <p class="text-center">AI Team Improvement in Comparison to Manager Team: @Math.Round(percentageImprovement,2,MidpointRounding.AwayFromZero) %</p>   
     </body>
 }
-@* @section Scripts
-{
-    <script>
-        function GetAITeam(){
-            document.getElementById("prgStatus").style["width"] = "89%");
-            @if(teamPicker != null)
-            {
-                <text>document.getElementById("progressStatusBar").setAttribute("aria-valuemax","@teamPicker.playerListCount");</text>
-                Progress<ProgressData> progress = new Progress<ProgressData>();
-                progress.ProgressChanged += (s,e) => {
-                    <text>
-                        var progressBar = document.getElementById("progressStatusBar");
-                        progressBar.setAttribute("aria-valuenow", "@e.currentValue");
-                    </text>
-                };
-                chosenTeam = await teamPicker.AITeam(progress);
-            }           
-        }
-    </script>
-} *@

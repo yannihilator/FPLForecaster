@@ -4063,6 +4063,7 @@ input[type="button"].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  background-color: #05386B;
 }
 
 .nav-link:hover, .nav-link:focus {
@@ -4114,12 +4115,13 @@ input[type="button"].btn-block {
 
 .nav-pills .nav-link {
   border-radius: 0.25rem;
+  background-color: #05386B;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #007bff;
+  background-color: #05386B;
 }
 
 .nav-fill .nav-item {
