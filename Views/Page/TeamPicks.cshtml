@@ -1,9 +1,14 @@
 @model int?
 @{
     ViewData["Title"] = "Team Picks";
+
     string allClass = Model != null && Model.Value != 10 && Model.Value != 15 ? "nav-link active" : "nav-link";
     string fifteenClass = Model != null && Model.Value == 15 ? "nav-link active" : "nav-link";
     string tenClass = Model != null && Model.Value == 10 ? "nav-link active" : "nav-link";
+
+    string allStyle = Model != null && Model.Value != 10 && Model.Value != 15 ? "background-color: #05386B;" : "color: #05386B;";
+    string fifteenStyle = Model != null && Model.Value == 15 ? "background-color: #05386B;" : "color: #05386B;";
+    string tenStyle = Model != null && Model.Value == 10 ? "background-color: #05386B;" : "color: #05386B;";
 }
 
 <head>  
@@ -11,15 +16,15 @@
     <title></title>  
 </head> 
 <form method="post" asp-controller="Page" asp-action="TeamPicks">
-    <nav class="nav nav-pills nav-fill">
+    <nav class="nav nav-pills nav-justified">
         <li class="nav-item">
-            <a class=@allClass asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="@DataService.Data.CurrentGameweek">All Gameweeks</a>
+            <a class=@allClass style=@allStyle asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="@DataService.Data.CurrentGameweek">All Gameweeks</a>
         </li>
         <li class="nav-item">
-            <a class=@fifteenClass asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="15">Last 15 Gameweeks</a>
+            <a class=@fifteenClass style=@fifteenStyle asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="15">Last 15 Gameweeks</a>
         </li>
         <li class="nav-item">
-            <a class=@tenClass asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="10">Last 10 Gameweeks</a>
+            <a class=@tenClass style=@tenStyle asp-controller="Page" asp-action="TeamPicks" asp-route-weeks="10">Last 10 Gameweeks</a>
         </li>
     </nav>
 </form>
