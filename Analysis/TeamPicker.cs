@@ -124,7 +124,7 @@ namespace FPLForecaster.Analysis
             int weight_minuteConfidence = 2;
             double minuteConfidence = (double)lastTenGames.Select(x => x?.minutes).Where(x => x.HasValue).Sum().Value/(90*gameweekCount);
             //have they been returning points recently?
-            int weight_pointsPerGame = 6;
+            int weight_pointsPerGame = 8;
             double pointsPerGame = (double)lastTenGames.Select(x => x.total_points).Where(x => x.HasValue).Sum()/gameweekCount;
             //what is their value in their position?
             int weight_contributionFactor = 3;
