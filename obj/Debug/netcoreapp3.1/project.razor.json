@@ -14447,6 +14447,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/Page/Home.cshtml",
+      "TargetPath": "Views\\Page\\Home.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/Users/yanni/Documents/Repos/FPLForecaster/Views/_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"

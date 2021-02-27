@@ -20,6 +20,11 @@ namespace FPLForecaster.Controllers
             _logger = logger;
         }
 
+        public IActionResult Home()
+        {
+            return View();
+        }
+
         public IActionResult ManagerView()
         {
             return View();

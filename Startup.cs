@@ -50,7 +50,7 @@ namespace FPLForecaster
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Page}/{action=ManagerView}/{id?}");
+                    pattern: "{controller=Page}/{action=Home}/{id?}");
             });
             
             //Populates general data such as fixtures, players, and teams
