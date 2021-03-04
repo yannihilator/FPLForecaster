@@ -6,7 +6,7 @@
     string fifteenClass = Model != null && Model.Value == 15 ? "nav-link active" : "nav-link";
     string tenClass = Model != null && Model.Value == 10 ? "nav-link active" : "nav-link";
 
-    string commonStyle = "border: 1px solid black;margin: 10px;";
+    string commonStyle = "border: 1px solid #05386B;margin: 10px;";
     string allStyle = (Model != null && Model.Value != 10 && Model.Value != 15 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
     string fifteenStyle = (Model != null && Model.Value == 15 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
     string tenStyle = (Model != null && Model.Value == 10 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
@@ -128,6 +128,6 @@
         <p class="text-center">AI Team Total Points: @Math.Round(gameweekPointsValues.Sum(),2,MidpointRounding.AwayFromZero)</p>
         <p class="text-center">Manager Team Total Points: @managerGameweekValues.Sum()</p>
         @{var percentageImprovement = FPLForecaster.Analysis.StatisticCalculator.PercentChange(managerGameweekValues.Sum().Value, gameweekPointsValues.Sum());}
-        <p class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
+        <p style="margin-bottom: 60px;" class="text-center">AI Team Improvement in Comparison to Manager Team: @percentageImprovement %</p>   
     </body>
 }
