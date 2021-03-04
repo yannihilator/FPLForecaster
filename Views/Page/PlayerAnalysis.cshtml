@@ -1,13 +1,13 @@
 @{
-        ViewData["Title"] = "Player Analysis";
+    ViewData["Title"] = "Player Analysis";
 
-        var players = DataService.Data.Players.Where(x => x.minutes > 0).Select(y => new 
-            {
-                x = (double)y.now_cost/10, 
-                y = y.total_points, 
-                name = $"{y.first_name} {y.second_name} ({DataService.Data.Teams.Where(z => z.id == y.team).FirstOrDefault()?.name})"
-            }).ToList();
-        var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(players);
+    var players = DataService.Data.Players.Where(x => x.minutes > 0).Select(y => new 
+        {
+            x = (double)y.now_cost/10, 
+            y = y.total_points, 
+            name = $"{y.first_name} {y.second_name} ({DataService.Data.Teams.Where(z => z.id == y.team).FirstOrDefault()?.name})"
+        }).ToList();
+    var dataJson = Newtonsoft.Json.JsonConvert.SerializeObject(players);
 }
 
 @await Html.PartialAsync("/Views/Charts/_ScatterChart.cshtml", new FPLForecaster.Models.ScatterChartData(){
@@ -18,4 +18,3 @@
     yLabel = "Total Points",
     height_pixels = "500"
 }) 
-<hr/>

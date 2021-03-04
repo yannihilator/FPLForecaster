@@ -16,8 +16,8 @@
         <hr/>
         <div class="box">
             <blockquote class="blockquote" style="text-align: center;">
-                <p class="mb-0">Not everything that can be counted counts, and not everything that counts can be counted.</p>
-                <footer class="blockquote-footer">Albert Einstein</footer>
+                <p class="mb-0">I never guess. It is a capital mistake to theorize before one has data. Insensibly one begins to twist facts to suit theories, instead of theories to suit facts.</p>
+                <footer class="blockquote-footer">Sir Arthur Conan Doyle</footer>
             </blockquote>
         </div>
         <div class="row justify-content-md-center">
@@ -29,7 +29,7 @@
     <section id="infoSection">
         <h4>Purpose</h4>
         <p>
-            The main purpose of this application is to extract, analyze, and present <a href="https://fantasy.premierleague.com/">Fantasy Premier League</a> 
+            The main purpose of this application is to extract, analyze, and present <a href="https://fantasy.premierleague.com/" target="_blank" rel="noopener noreferrer">Fantasy Premier League</a> 
             data in order to assist Fantasy Premier League players in making selections for their teams. Additionally, it serves as an educational introduction to 
             web development and the ASP.NET Core framework for myself. As my skills in web development, knowledge of the framework and data analysis improve, I will return to 
             this project and optimize the code and to incorporate best practices. 
@@ -44,7 +44,7 @@
         <p>
             Each manager must choose a team of Premier League players with a £100.0M budget. Every Premier League player is assigned a monetary value (in the £M vicinity), thus 
             making the task of choosing a squad a trade-off between cost and return in total points. The manager is required to choose 15 players according to the following positions:
-            <ul>
+            <ul style="margin: 20px;">
                 <li>2 Goalkeepers</li>
                 <li>5 Defenders</li>
                 <li>5 Midfielders</li>
@@ -52,9 +52,13 @@
             </ul>
             Premier League players return fantasy points during games, and specific events yield different rewards depending on the player's position. Below is a cross reference matrix 
             with significant events that can occur during a game and their fantasy point return value based on player position:
+            <style>
+                td{border: 1px solid black; padding: 0 10px 0 10px; text-align: center;}
+                th{border: 1px solid black; padding: 0 10px 0 10px; text-align: center; background-color: #5CDB95;}
+            </style>
             <table style="margin: 20px;" class="row justify-content-md-center">
                 <tr>
-                    <td></td>
+                    <th scope="col" style="border-bottom: 3px solid black;">Event</th>
                     <th scope="col">Goalkeeper</th>
                     <th scope="col">Defender</th>
                     <th scope="col">Midfielder</th>
@@ -112,7 +116,7 @@
             </table>
 
             These are just the rules that are important to the scope of this application. For a more thorough explanation, please visit FPL's official rules page 
-            <a href="https://fantasy.premierleague.com/help/rules">here</a>.
+            <a href="https://fantasy.premierleague.com/help/rules" target="_blank" rel="noopener noreferrer">here</a>.
         </p>
         <h4>How the Application Works</h4>
         <p>

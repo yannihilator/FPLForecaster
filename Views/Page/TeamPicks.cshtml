@@ -6,9 +6,10 @@
     string fifteenClass = Model != null && Model.Value == 15 ? "nav-link active" : "nav-link";
     string tenClass = Model != null && Model.Value == 10 ? "nav-link active" : "nav-link";
 
-    string allStyle = Model != null && Model.Value != 10 && Model.Value != 15 ? "background-color: #05386B;" : "color: #05386B;";
-    string fifteenStyle = Model != null && Model.Value == 15 ? "background-color: #05386B;" : "color: #05386B;";
-    string tenStyle = Model != null && Model.Value == 10 ? "background-color: #05386B;" : "color: #05386B;";
+    string commonStyle = "border: 1px solid black;margin: 10px;";
+    string allStyle = (Model != null && Model.Value != 10 && Model.Value != 15 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
+    string fifteenStyle = (Model != null && Model.Value == 15 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
+    string tenStyle = (Model != null && Model.Value == 10 ? "background-color: #05386B;" : "color: #05386B;") + commonStyle;
 }
 
 <head>  
