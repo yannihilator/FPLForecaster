@@ -21,6 +21,7 @@ namespace FPLForecaster
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //webBuilder.UseUrls("https://localhost:6969", "https://localhost:9001");
                 });
     }
 }
