@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "MmE5LkjZBlpKpb8LZjg5dlH7bXBDKDbc7M7uWXYJuPz6mSByM2Dwz047DBNyjnICnY2+r/8m63flQeeOIxOwaw==",
+  "dgSpecHash": "fRki6+3u7jv1mrzlUCyonj6lCOhOut0h+sKwqd/quhZSnwF4GvPjRW80Gcr1NP4JI6jyu6cUFxovSoHWl3Wg2Q==",
   "success": true,
   "projectFilePath": "/Users/yanni/Documents/Repos/FPLForecaster/FPLForecaster.csproj",
   "expectedPackageFiles": [
-    "/Users/yanni/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
+    "/Users/yanni/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/Users/yanni/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.10/microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
+    "/Users/yanni/.nuget/packages/microsoft.netcore.app.host.osx-x64/3.1.21/microsoft.netcore.app.host.osx-x64.3.1.21.nupkg.sha512"
   ],
   "logs": []
 }

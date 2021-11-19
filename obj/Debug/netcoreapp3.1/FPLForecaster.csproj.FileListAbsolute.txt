@@ -37,7 +37,6 @@
 /Users/yanni/Documents/Repos - Local Stuff/FPLForecaster/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/Properties/appsettings.Development.json
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/Properties/appsettings.json
-/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.deps.json
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.runtimeconfig.json
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.runtimeconfig.dev.json
@@ -46,7 +45,6 @@
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.Views.dll
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.Views.pdb
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
-/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.csprojAssemblyReference.cache
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.AssemblyInfoInputs.cache
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.AssemblyInfo.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.csproj.CoreCompileInputs.cache
@@ -66,7 +64,6 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.Views.pdb
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.csproj.CopyComplete
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/staticwebassets/FPLForecaster.StaticWebAssets.Manifest.cache
-/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/staticwebassets/FPLForecaster.StaticWebAssets.xml
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.dll
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.pdb
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.genruntimeconfig.cache
@@ -82,3 +79,7 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/Error.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Components/_ProgressBar.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/Home.cshtml.g.cs
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.StaticWebAssets.xml
+/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.csproj.AssemblyReference.cache
+/Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.GeneratedMSBuildEditorConfig.editorconfig
