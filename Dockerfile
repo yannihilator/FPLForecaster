@@ -1,8 +1,9 @@
 # Nuget restore
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
 WORKDIR /src
-COPY *.csproj
+COPY FPLForecaster.csproj .
 RUN dotnet restore
+COPY . .
 
 # testing
 FROM build AS testing
