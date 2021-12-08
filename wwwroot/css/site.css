@@ -62,10 +62,50 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+}
+
+/* For high resolution screen sizes */
+@media (min-width: 1500px) {
+  body {
+      font-size: 1.5rem;
+  }
+  .table-text {
+      font-size: 1.5rem;
+  }
+  .custom-table {
+      width: 70%;
+  }
+}
+
+/* For laptop screen sizes */
+@media (min-width: 750px) and (max-width: 1500px) {
+  body {
+      font-size: 1.1rem;
+  }
+  .table-text {
+      font-size: 1.0rem;
+  }
+  .custom-table {
+      width: 70%;
+  }
+}
+
+/* For mobile */
+@media (max-width: 750px) {
+  body {
+      font-size: 0.9rem;
+  }
+  .table-text {
+      font-size: 0.6rem;
+  }
+  .custom-table {
+      width: 90%;
+  }
 }
