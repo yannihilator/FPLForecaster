@@ -70,13 +70,13 @@
         @foreach(var positions in DataService.Data.AITeam.GroupBy(x => x.element_type).Reverse().ToList())
         {
             <h5 class="text-center">@DataService.Enumerators.PlayerTypes.Where(x => x.id == positions.FirstOrDefault()?.element_type)?.FirstOrDefault()?.plural_name</h5>
-            <div class="row justify-content-md-center">
+            <div class="row text-center">
                 @foreach(Player player in positions)
                 {
                     var playerPhotoUrl = $"https://resources.premierleague.com/premierleague/photos/players/110x140/p{player.code}.png";
-                    <div class="card text-center border-dark" style="width: 10rem;margin:10px">
+                    <div class="card text-center border-dark" style="margin:10px">
                         <div class="card-header" style="background-color: #05386B;">
-                            <p class="card-text" ><small class="text-white">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</small></p>
+                            <p class="card-text" style="color: white;">@DataService.Data.Teams.Where(x => x.id == player.team).FirstOrDefault()?.name</p>
                         </div>
                         <img class="card-img-top" src="@playerPhotoUrl" alt="" style="background-color: #EDF5E1;">
                         <div class="card-body text-white" style="background-color: rgba(5, 56, 107, 0.4);">

@@ -4,8 +4,7 @@
 
 <head>  
     <link rel="stylesheet" href="/css/site.css">
-    <meta name="viewport" content="width=device-width" />  
-    <title></title>  
+    <meta name="viewport" content="width=device-width" />   
 </head> 
 <div class="container">
     <section id="introSection">
@@ -22,7 +21,7 @@
                     <footer class="blockquote-footer">Sir Arthur Conan Doyle</footer>
                 </blockquote>
             </div>
-            <div class="row justify-content-md-center" style="height: 30%;">
+            <div class="text-center" style="height: 30%;">
                 <svg onclick="scrollToMain()" style="cursor: pointer;" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                 </svg>
@@ -61,65 +60,68 @@
                 td{border: 1px solid black; padding: 0 10px 0 10px; text-align: center;}
                 th{border: 1px solid black; padding: 0 10px 0 10px; text-align: center; background-color: #5CDB95;}
             </style>
-            <table class="custom-table row justify-content-md-center" style="margin: 0px; color: black; table-layout: fixed;">
-                <tr class="table-text">
-                    <th scope="col" style="border-bottom: 3px solid black;">Event</th>
-                    <th scope="col">Goalkeeper</th>
-                    <th scope="col">Defender</th>
-                    <th scope="col">Midfielder</th>
-                    <th scope="col">Forward</th>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Playing LESS than 60 minutes</th>
-                    <td>1 point</td>
-                    <td>1 point</td>
-                    <td>1 point</td>
-                    <td>1 point</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Playing MORE than 60 minutes</th>
-                    <td>2 points</td>
-                    <td>2 points</td>
-                    <td>2 points</td>
-                    <td>2 points</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Goal</th>
-                    <td>6 points</td>
-                    <td>6 points</td>
-                    <td>5 points</td>
-                    <td>4 points</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Assist</th>
-                    <td>3 points</td>
-                    <td>3 points</td>
-                    <td>3 points</td>
-                    <td>3 points</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Clean Sheet</th>
-                    <td>4 points</td>
-                    <td>4 points</td>
-                    <td>1 point</td>
-                    <td>0 points</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Yellow Card</th>
-                    <td>-1 point</td>
-                    <td>-1 point</td>
-                    <td>-1 point</td>
-                    <td>-1 point</td>
-                </tr>
-                <tr class="table-text">
-                    <th scope="row">Red Card</th>
-                    <td>-3 points</td>
-                    <td>-3 points</td>
-                    <td>-3 points</td>
-                    <td>-3 points</td>
-                </tr>
-            </table>
-
+            <br>
+            <div class="row justify-content-center">
+                <table class="custom-table" style="margin: 0px; color: black; table-layout: fixed;">
+                    <tr class="table-text">
+                        <th scope="col" style="border-bottom: 3px solid black;">Event</th>
+                        <th scope="col">Goalkeeper</th>
+                        <th scope="col">Defender</th>
+                        <th scope="col">Midfielder</th>
+                        <th scope="col">Forward</th>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Playing LESS than 60 minutes</th>
+                        <td>1 point</td>
+                        <td>1 point</td>
+                        <td>1 point</td>
+                        <td>1 point</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Playing MORE than 60 minutes</th>
+                        <td>2 points</td>
+                        <td>2 points</td>
+                        <td>2 points</td>
+                        <td>2 points</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Goal</th>
+                        <td>6 points</td>
+                        <td>6 points</td>
+                        <td>5 points</td>
+                        <td>4 points</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Assist</th>
+                        <td>3 points</td>
+                        <td>3 points</td>
+                        <td>3 points</td>
+                        <td>3 points</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Clean Sheet</th>
+                        <td>4 points</td>
+                        <td>4 points</td>
+                        <td>1 point</td>
+                        <td>0 points</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Yellow Card</th>
+                        <td>-1 point</td>
+                        <td>-1 point</td>
+                        <td>-1 point</td>
+                        <td>-1 point</td>
+                    </tr>
+                    <tr class="table-text">
+                        <th scope="row">Red Card</th>
+                        <td>-3 points</td>
+                        <td>-3 points</td>
+                        <td>-3 points</td>
+                        <td>-3 points</td>
+                    </tr>
+                </table>
+            </div>
+            <br>
             These are just the rules that are important to the scope of this application. For a more thorough explanation, please visit FPL's official rules page 
             <a href="https://fantasy.premierleague.com/help/rules" target="_blank" rel="noopener noreferrer">here</a>.
         </p>

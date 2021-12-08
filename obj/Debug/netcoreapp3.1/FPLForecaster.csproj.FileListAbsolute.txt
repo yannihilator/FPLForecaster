@@ -79,7 +79,6 @@
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/Error.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Components/_ProgressBar.cshtml.g.cs
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/Razor/Views/Page/Home.cshtml.g.cs
-/Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster.StaticWebAssets.xml
 /Users/yanni/Documents/Repos/FPLForecaster/bin/Debug/netcoreapp3.1/FPLForecaster
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.csproj.AssemblyReference.cache
 /Users/yanni/Documents/Repos/FPLForecaster/obj/Debug/netcoreapp3.1/FPLForecaster.GeneratedMSBuildEditorConfig.editorconfig
