@@ -1,10 +1,11 @@
 # Nuget restore
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
-COPY ./Images/fpl_logo.png .
+COPY /Images/fpl_logo.png .
 COPY FPLForecaster.csproj .
 RUN dotnet restore
 COPY . .
+RUN ls
 
 # testing
 FROM build AS testing
